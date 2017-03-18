@@ -1,5 +1,6 @@
 Role Name
 =========
+[![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder)
 
 This role will deploy the Splunk univeral forwarder.
 
