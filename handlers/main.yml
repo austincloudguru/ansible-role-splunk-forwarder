@@ -1,5 +1,4 @@
 ---
----
 - name: Enable Splunk Forwarder
   service:
     name: splunk
