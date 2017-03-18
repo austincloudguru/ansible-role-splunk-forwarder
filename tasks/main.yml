@@ -1,5 +1,4 @@
 ---
----
 - name: Create Splunk group
   group:
     name: "{{ splunk_forwarder_group }}"

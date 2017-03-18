@@ -6,29 +6,25 @@ This role will deploy the Splunk univeral forwarder.
 Requirements
 ------------
 
-This is currently a private galaxy role, and should be added via the requirements.yml file with: 
-
-    - name:    splunk-forwarder
-      src:     git@github.com:Blackbaud/ansible-role-splunk-forwarder.git
-      scm:     git
-      version: master
-
+None
 
 Role Variables
 --------------
 
 ###Default
+
 For most people, the default variables that are set should be fine, but there are use cases for changing them.  They are:
 
 
-splunk_forwarder_user
-splunk_forwarder_group
-splunk_forwarder_uid
-splunk_forwarder_gid
-splunk_forwarder_url
-splunk_forwarder_rpm
+     splunk_forwarder_user
+     splunk_forwarder_group
+     splunk_forwarder_uid
+     splunk_forwarder_gid
+     splunk_forwarder_url
+     splunk_forwarder_rpm
 
 ###Playbook Variables
+
 Within your playbook, you should set the following variables:
 
     splunk_forwarder_indexer: # Set to the URL:PORT of your splunk indexer i.e. "splunk-indexer.blackbaudcloud.com:9997"
