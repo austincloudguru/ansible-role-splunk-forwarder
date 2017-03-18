@@ -10,8 +10,8 @@
  Group=splunk
  LimitNOFILE=65536
  ExecStart=/opt/splunkforwarder/bin/splunk start --accept-license --answer-yes --no-prompt
- ExecStop=/opt/splunk/bin/splunk stop
- PIDFile=/opt/splunk/var/run/splunk/splunkd.pid
+ ExecStop=/opt/splunkforwarder/bin/splunk stop
+ PIDFile=/opt/splunkforwarder/var/run/splunk/splunkd.pid
  
  [Install]
  WantedBy=multi-user.target
