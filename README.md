@@ -61,7 +61,7 @@ You should define the required variables in your playbook and call the role:
         roles:
         - splunk-forwarder
 
-If you want to run this against an AmazonLinxu instance, add the following to your playbook:
+If you want to run this against an AmazonLinux instances, add the following to your playbook, otherwise it will fail.:
 
      pre_tasks:
        - set_fact: ansible_distribution_major_version=6
@@ -77,5 +77,5 @@ MIT
 Author Information
 ------------------
 
-Blackbaud
-Created in 2016 by [Blackbaud](http://blackbaud.com/)
+Mark Honomichl aka [AustinCloudGuru](https://austincloud.guru)
+Created in 2016 
