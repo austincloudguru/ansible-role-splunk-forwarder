@@ -21,10 +21,15 @@
   tags: install_splunk
   when: ansible_os_family == "RedHat"
 
+- name: Check if the packages has already been downlaoded
+  stat: 
+    path: /tmp/{{ splunk_forwarder_deb }}
+  register: splunk_deb
+
 - name: Get the deb
   command: curl -o /tmp/{{ splunk_forwarder_deb }} {{ splunk_forwarder_deb_url }}
   tags: install_splunk
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and splunk_deb.stat.exists == False
 
 - name: Install Splunk
   yum:
