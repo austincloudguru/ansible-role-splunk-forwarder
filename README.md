@@ -12,7 +12,7 @@ None
 Role Variables
 --------------
 
-###Default
+### Default
 
 For most people, the default variables that are set should be fine, but there are use cases for changing them.  They are:
 
@@ -24,7 +24,7 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_forwarder_url
      splunk_forwarder_rpm
 
-###Playbook Variables
+### Playbook Variables
 
 Within your playbook, you should set the following variables:
 
