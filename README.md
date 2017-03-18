@@ -21,14 +21,16 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_forwarder_group
      splunk_forwarder_uid
      splunk_forwarder_gid
-     splunk_forwarder_url
+     splunk_forwarder_rpm_url
      splunk_forwarder_rpm
+     splunk_forwarder_deb_url
+     splunk_forwarder_deb
 
 ### Playbook Variables
 
 Within your playbook, you should set the following variables:
 
-    splunk_forwarder_indexer: # Set to the URL:PORT of your splunk indexer i.e. "splunk-indexer.blackbaudcloud.com:9997"
+    splunk_forwarder_indexer: # Set to the URL:PORT of your splunk indexer i.e. "splunk-indexer:9997"
     splunk_forwarder_index:  # Set to the index that the forwarder should use i.e. "default"
     splunk_forwarder_sourcetype:  # Set the Source type i.e. "nginx"
 
@@ -52,7 +54,7 @@ You should define the required variables in your playbook and call the role:
       remote_user: ec2-user
       become: True
       vars:
-        splunk_forwarder_indexer: "splunk-indexer.blackbaudcloud.com:9997"
+        splunk_forwarder_indexer: "splunk-indexer:9997"
         splunk_forwarder_index: "prodapps"
         splunk_forwarder_sourcetype: "nginx"
         splunk_forwarder_logs: |
