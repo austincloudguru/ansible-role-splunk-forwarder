@@ -1,5 +1,4 @@
 ---
 - hosts: localhost
-  remote_user: root
   roles:
-    - ansible-role-splunk-forwarder
+    - role_under_test
