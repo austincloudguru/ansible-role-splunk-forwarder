@@ -1,2 +1,19 @@
 ---
-# defaults file for ansible-role-splunk-forwarder
+splunk_forwarder_user: "splunk"
+splunk_forwarder_group: "splunk"
+splunk_forwarder_uid: "10011"
+splunk_forwarder_gid: "10011"
+splunk_forwarder_rpm_url: "https://download.splunk.com/products/universalforwarder/releases/6.5.0/linux/splunkforwarder-6.5.0-59c8927def0f-linux-2.6-x86_64.rpm"
+splunk_forwarder_deb_url: "https://download.splunk.com/products/universalforwarder/releases/6.5.0/linux/splunkforwarder-6.5.0-59c8927def0f-linux-2.6-amd64.deb"
+splunk_forwarder_rpm: "splunkforwarder-6.5.0-59c8927def0f-linux-2.6-x86_64.rpm"
+splunk_forwarder_deb: "splunkforwarder-6.5.0-59c8927def0f-linux-2.6-amd64.deb"
+
+
+# These may be removed at some point, but they are placeholders so I don't forget to set them
+splunk_forwarder_indexer: "splunk-indexer:9997"
+splunk_forwarder_index: "default"
+splunk_forwarder_sourcetype: "nginx"
+
+splunk_forwarder_logs: |
+  [monitor:///var/log/nginx/access.log*]
+  [monitor:///var/log/nginx/error.log*]
