@@ -61,6 +61,11 @@ You should define the required variables in your playbook and call the role:
         roles:
         - splunk-forwarder
 
+If you want to run this against an AmazonLinxu instance, add the following to your playbook:
+
+     pre_tasks:
+       - set_fact: ansible_distribution_major_version=6
+         when: ansible_distribution == "Amazon" and ansible_distribution_major_version == "NA"
 
 
 License
