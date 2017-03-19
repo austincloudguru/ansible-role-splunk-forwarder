@@ -1,4 +1,4 @@
-Role Name
+Ansible Role: splunk-forwarder
 =========
 [![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder)
 
