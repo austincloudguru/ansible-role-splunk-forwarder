@@ -19,27 +19,17 @@ galaxy_info:
   #  - quantal
   #  - raring
   #  - saucy
-  #  - trusty
+    - trusty
   #  - utopic
   #  - vivid
   #  - wily
     - xenial
   #  - yakkety
-  - name: Debian
-    versions:
-  #  - all
-  #  - etch
-  #  - jessie
-  #  - lenny
-    - sid
-  #  - squeeze
-  #  - stretch
-  #  - wheezy
   - name: EL
     versions:
   #  - all
   #  - 5
-  #  - 6
+    - 6
     - 7
   galaxy_tags:  
     - splunk
