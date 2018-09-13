@@ -2,12 +2,13 @@ Ansible Role: splunk-forwarder
 =========
 [![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder)
 
-This role will deploy the Splunk univeral forwarder.
+This role will deploy the Splunk universal forwarder.
 
 Requirements
 ------------
 
-None
+This role is tested on Ubuntu 18.04 and CentOS7, but should probably work on any systemd based system.  The previous version of this role is available as a tag (v1.0)
+
 
 Role Variables
 --------------
