@@ -11,12 +11,9 @@ galaxy_info:
         - all
     - name: Ubuntu
       versions:
-        - trusty
-        - xenial
         - bionic
-    - name: EL
+    - name: Centos
       versions:
-        - 6
         - 7
   galaxy_tags:
     - splunk

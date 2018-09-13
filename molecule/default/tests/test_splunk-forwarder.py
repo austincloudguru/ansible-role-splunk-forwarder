@@ -14,3 +14,8 @@ def test_splunk_group_exists(host):
 def test_splunk_user_exists(host):
     splunk_user = host.user("splunk")
     assert splunk_user.exists
+
+def test_splunk_is_running(host):
+    splunk_service = host.service('splunkd')
+    assert splunk_service.is_running
+    assert splunk_service.is_enabled

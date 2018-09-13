@@ -14,37 +14,31 @@
     state: present
   tags: splunk_user
 
-- name: Get the RPM
+- name: Download the Splunk package (Ubuntu)
   get_url:
-    url: "{{ splunk_forwarder_rpm_url }}"
+    url: "{{ splunk_deb }}"
+    dest: "/tmp/{{ splunk_forwarder_deb }}"
+    checksum: "{{ deb_checksum }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install Splunk (Ubuntu)
+  apt:
+    deb: "/tmp/{{ splunk_forwarder_deb }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Download the Splunk package (CentOS)
+  get_url:
+    url: "{{ splunk_rpm }}"
     dest: "/tmp/{{ splunk_forwarder_rpm }}"
-  tags: install_splunk
+    checksum: "{{ rpm_checksum }}"
   when: ansible_os_family == "RedHat"
 
-- name: Check if the packages has already been downlaoded
-  stat:
-    path: /tmp/{{ splunk_forwarder_deb }}
-  register: splunk_deb
-
-- name: Get the deb
-  get_url:
-    url: "{{ splunk_forwarder_deb_url }}"
-    dest: "/tmp/{{ splunk_forwarder_deb }}"
-  tags: install_splunk
-  when: ansible_os_family == "Debian" and splunk_deb.stat.exists == False
-
-- name: Install Splunk
+- name: Install Splunk (CentOS)
   yum:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     state: present
-  tags: install_splunk
   when: ansible_os_family == "RedHat"
-
-- name: Install Splunk
-  apt:
-    deb: "/tmp/{{ splunk_forwarder_deb }}"
-  tags: install_splunk
-  when: ansible_os_family == "Debian"
 
 - name: Copy inputs file
   template:
@@ -60,35 +54,12 @@
     backup: yes
   tags: config_copy
 
-- name: Upload Splunk startup script
-  copy:
-    src: splunk.deb
-    dest: /etc/init.d/splunk
-    owner: 0
-    group: 0
-    mode: 0755
-  tags: splunk_startup
-  notify: Enable Splunk Forwarder
-  when: ansible_os_family == "Debian"
-
-- name: Upload Splunk startup script
-  copy:
-    src: splunk
-    dest: /etc/init.d/splunk
-    owner: 0
-    group: 0
-    mode: 0755
-  tags: splunk_startup
-  notify: Enable Splunk Forwarder
-  when: ansible_os_family == "RedHat" and ansible_distribution_major_version <= "6"
-
 - name: Upload Splunk Systemd Script
   copy:
     src: splunk.service
-    dest: /usr/lib/systemd/system/splunk.service
+    dest: /etc/systemd/system/splunkd.service
     owner: 0
     group: 0
     mode: 0755
-  tags: splunk_startup
   notify: Enable Splunk Forwarder
-  when: ansible_os_family == "RedHat" and ansible_distribution_major_version >="7"
+  when: ansible_service_mgr == 'systemd'

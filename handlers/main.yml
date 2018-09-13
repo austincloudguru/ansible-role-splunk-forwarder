@@ -1,6 +1,6 @@
 ---
 - name: Enable Splunk Forwarder
   service:
-    name: splunk
+    name: splunkd
     enabled: yes
     state: started
