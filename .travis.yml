@@ -2,8 +2,7 @@
 sudo: required
 language: python
 cache: pip
-dist: trusty
-group: deprecated-2017Q4
+
 branches:
   only:
     - master
