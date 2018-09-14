@@ -13,7 +13,7 @@ galaxy_info:
       versions:
         - xenial
         - bionic
-    - name: Centos
+    - name: EL
       versions:
         - 7
   galaxy_tags:
