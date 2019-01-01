@@ -9,8 +9,8 @@ splunk_forwarder_rpm: "splunkforwarder-7.2.3-06d57c595b80-linux-2.6-x86_64.rpm"
 splunk_forwarder_deb: "splunkforwarder-7.2.3-06d57c595b80-linux-2.6-amd64.deb"
 splunk_rpm: "{{ splunk_url }}/{{ splunk_forwarder_rpm }}"
 splunk_deb: "{{ splunk_url }}/{{ splunk_forwarder_deb }}"
-deb_checksum: "md5:58e95bec684d4ba3ec09db976b28cdba"
-rpm_checksum: "md5:204deb6af06cc78a0ac5cc87d033fc63"
+deb_checksum: "md5:097894a3f9c72992988ef753c4421a85"
+rpm_checksum: "md5:5b2df276acb22c3dd5f3f9245dfdc689"
 
 
 # These may be removed at some point, but they are placeholders so I don't forget to set them
