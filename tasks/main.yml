@@ -18,7 +18,7 @@
   get_url:
     url: "{{ splunk_deb }}"
     dest: "/tmp/{{ splunk_forwarder_deb }}"
-    checksum: "{{ deb_checksum }}"
+    checksum: "{{ splunk_deb_checksum }}"
   when: ansible_os_family == "Debian"
 
 - name: Install Splunk (Ubuntu)
@@ -31,7 +31,7 @@
   get_url:
     url: "{{ splunk_rpm }}"
     dest: "/tmp/{{ splunk_forwarder_rpm }}"
-    checksum: "{{ rpm_checksum }}"
+    checksum: "{{ splunk_rpm_checksum }}"
   when: ansible_os_family == "RedHat"
 
 - name: Install Splunk (CentOS)

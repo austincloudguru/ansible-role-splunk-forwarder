@@ -28,8 +28,8 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_forwarder_deb                       # Default Splunk Deb Name
      splunk_rpm                                 # Default RPM Full URL
      splunk_deb                                 # Default Deb Full URL
-     deb_checksum                               # Default Deb Checksum
-     rpm_checksum                               # Default RPM Checksum
+     splunk_deb_checksum                        # Default Deb Checksum
+     splunk_rpm_checksum                        # Default RPM Checksum
 
 
 ### Playbook Variables
