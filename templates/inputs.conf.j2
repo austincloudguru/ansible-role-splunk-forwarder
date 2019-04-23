@@ -9,3 +9,16 @@ blacklist = \.bz2$
 ignoreOlderThan = 7d
 sourcetype = {{ splunk_forwarder_sourcetype }}
 {{ splunk_forwarder_logs }}
+
+
+{% if splunk_forwarder_items is mapping %}
+{% for name, entry in splunk_forwarder_items.items() %}
+[{{ name }}]
+{% if entry is mapping %}
+{% for key, value in entry.items() %}
+{{key}} = {{value}}
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+{% endif %}
