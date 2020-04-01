@@ -14,7 +14,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
 install:
-  - pip install molecule docker
+  - pip install molecule=2.22 docker
 script:
   - molecule test
 
