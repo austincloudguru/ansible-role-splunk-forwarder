@@ -44,14 +44,16 @@
   template:
     src: inputs.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/inputs.conf
-    backup: yes
+    mode: 0664
+    backup: true
   tags: config_copy
 
 - name: Copy outputs file
   template:
     src: outputs.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/outputs.conf
-    backup: yes
+    mode: 0664
+    backup: true
   tags: config_copy
 
 - name: Upload Splunk Systemd Script
