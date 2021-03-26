@@ -1,7 +1,6 @@
 Ansible Role: splunk-forwarder
 =========
-[![Build Status](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder.svg?branch=master)](https://travis-ci.org/AustinCloudGuru/ansible-role-splunk-forwarder)
-
+[![CI](https://github.com/austincloudguru/ansible-role-splunk-forwarder/workflows/CI/badge.svg)](https://github.com/austincloudguru/ansible-role-splunksplunk-forwarder/actions?query=workflow%3ACI)  
 This role will deploy the Splunk universal forwarder.
 
 Requirements
