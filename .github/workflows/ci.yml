@@ -40,6 +40,9 @@ jobs:
       matrix:
         distro:
           - ubuntu:16.04
+          - ubuntu:18.04
+          - centos:7
+          - centos:8
 
     steps:
       - name: Check out the codebase.
