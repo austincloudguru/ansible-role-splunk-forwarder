@@ -8,7 +8,7 @@ name: CI
 
 defaults:
   run:
-    working-directory: 'austincloudguru.splunk-forwarder'
+    working-directory: 'ansible-role-splunk-forwarder'
 
 jobs:
 
@@ -19,7 +19,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'austincloudguru.splunk-forwarder'
+          path: 'ansible-role-splunk-forwarder'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -48,7 +48,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'austincloudguru.splunk-forwarder'
+          path: 'ansible-role-splunk-forwarder'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2

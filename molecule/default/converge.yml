@@ -2,5 +2,4 @@
 - name: Converge
   hosts: all
   roles:
-    # - role: austincloudguru.splunk-forwarder
     - role: ansible-role-splunk-forwarder
