@@ -39,8 +39,7 @@ jobs:
     strategy:
       matrix:
         distro:
-          - ubuntu-16.04
-          - centos-7
+          - ubuntu:16.04
 
     steps:
       - name: Check out the codebase.
@@ -57,7 +56,7 @@ jobs:
         run: pip3 install ansible molecule[docker] docker testinfra
 
       - name: Run Molecule tests.
-        run: molecule test --scenario-name ${{ matrix.distro }}
+        run: molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'

@@ -8,12 +8,8 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: ubuntu-16.04
-    image: ubuntu:16.04
-    privileged: true
-    command: /sbin/init
-  - name: centos-7
-    image: centos:7
+  - name: instance
+    image: ${MOLECULE_DISTRO}
     privileged: true
     command: /sbin/init
 provisioner:
