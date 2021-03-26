@@ -34,13 +34,13 @@
     checksum: "{{ splunk_rpm_checksum }}"
   when: ansible_os_family == "RedHat"
 
-- name: Install Splunk (CentOS 7)
+- name: Install Splunk (python2 yum)
   yum:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     state: present
   when: ansible_os_family == "RedHat" and ansible_facts.python.version.major | int < 3
 
-- name: Install Splunk (CentOS 8)
+- name: Install Splunk (python3 dnf)
   dnf:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     disable_gpg_check: true
