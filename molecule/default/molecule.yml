@@ -15,15 +15,6 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-# platforms:
-# - name: ubuntu-16.04
-# image: ubuntu:16.04
-# privileged: true
-# command: /sbin/init
-# - name: centos-7
-# image: centos:7
-# privileged: true
-# command: /sbin/init
 provisioner:
   name: ansible
 verifier:
