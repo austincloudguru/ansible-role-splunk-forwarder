@@ -1,12 +1,12 @@
 Ansible Role: splunk-forwarder
 =========
-[![CI](https://github.com/austincloudguru/ansible-role-splunk-forwarder/workflows/CI/badge.svg)](https://github.com/austincloudguru/ansible-role-splunksplunk-forwarder/actions?query=workflow%3ACI)  
+[![CI](https://github.com/austincloudguru/ansible-role-splunk-forwarder/workflows/CI/badge.svg?event=push)](https://github.com/austincloudguru/ansible-role-splunksplunk-forwarder/actions?query=workflow%3ACI)  
 This role will deploy the Splunk universal forwarder.
 
 Requirements
 ------------
 
-This role is tested on Ubuntu 16.04, 18.04 and CentOS7, but should probably work on any systemd based system.  The previous version of this role is available as a tag (v1.0)
+This role is tested on Ubuntu 16.04, 18.04 and CentOS 7, 8, but should probably work on any systemd based system.  The previous version of this role is available as a tag (v1.0)
 
 
 Role Variables

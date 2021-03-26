@@ -43,6 +43,7 @@ jobs:
           - ubuntu:18.04
           - centos:7
           - centos:8
+          - amazonlinux:2
 
     steps:
       - name: Check out the codebase.
