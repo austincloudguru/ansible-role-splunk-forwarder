@@ -8,12 +8,14 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: instance
-    image: ${MOLECULE_DISTRO:-centos7}
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: ubuntu-16.04
+    image: ubuntu:16.04
     privileged: true
+    command: /sbin/init
+  - name: centos-7
+    image: centos:7
+    privileged: true
+    command: /sbin/init
 provisioner:
   name: ansible
 verifier:
