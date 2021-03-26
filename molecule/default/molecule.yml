@@ -11,6 +11,8 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO}
     privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /sbin/init
 provisioner:
   name: ansible

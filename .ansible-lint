@@ -3,4 +3,4 @@ skip_list:
   - '106'
 
 mock_roles:
-  - ansible-role-splunk-forwarder
+  - austincloudguru.splunk-forwarder
