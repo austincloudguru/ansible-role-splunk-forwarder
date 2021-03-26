@@ -14,7 +14,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
 install:
-  - pip install molecule docker yamllint ansible-lint testinfra molecule-docker
+  - pip install molecule docker yamllint ansible-lint testinfra molecule-docker ansible
 script:
   - molecule test
 
