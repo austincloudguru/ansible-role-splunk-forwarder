@@ -14,14 +14,14 @@
     state: present
   tags: splunk_user
 
-- name: Download the Splunk package (Ubuntu)
+- name: Download the Splunk package (Debian/Ubuntu)
   get_url:
     url: "{{ splunk_deb }}"
     dest: "/tmp/{{ splunk_forwarder_deb }}"
     checksum: "{{ splunk_deb_checksum }}"
   when: ansible_os_family == "Debian"
 
-- name: Install Splunk (Ubuntu)
+- name: Install Splunk (Debian/Ubuntu)
   apt:
     deb: "/tmp/{{ splunk_forwarder_deb }}"
     state: present
@@ -47,6 +47,24 @@
     state: present
   when: ansible_os_family == "RedHat" and ansible_facts.python.version.major | int >= 3
 
+- name: Copy user seeds file
+  template:
+    src: user-seed.conf.j2
+    dest: /opt/splunkforwarder/etc/system/local/user-seed.conf
+    mode: 0664
+    backup: true
+  when: splunk_forwarder_admin_user != "" and splunk_forwarder_admin_pass != ""
+  tags: config_copy
+
+- name: Copy deploymentclient file 
+  template:
+    src: deploymentclient.conf.j2
+    dest: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
+    mode: 0664
+    backup: true
+  when: splunk_forwarder_depl_server != ""
+  tags: config_copy
+
 - name: Copy inputs file
   template:
     src: inputs.conf.j2
@@ -63,12 +81,23 @@
     backup: true
   tags: config_copy
 
+- name: Set logfile permissions
+  acl:
+    path: "{{ item }}"
+    entity: "{{ splunk_forwarder_user }}"
+    state: present
+    etype: user
+    permissions: r
+    recursive: yes
+  become: True
+  with_items: "{{ splunk_forwarder_logs }}"
+
 - name: Upload Splunk Systemd Script
   copy:
     src: splunk.service
     dest: /etc/systemd/system/splunkd.service
-    owner: 0
-    group: 0
+    owner: root
+    group: root
     mode: 0755
   notify: Enable Splunk Forwarder
   when: ansible_service_mgr == 'systemd'
