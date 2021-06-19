@@ -62,7 +62,7 @@
     dest: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
     mode: 0664
     backup: true
-  when: splunk_forwarder_depl_server | length > 0 
+  when: splunk_forwarder_depl_server | length > 0
   tags: config_copy
 
 - name: Copy inputs file
