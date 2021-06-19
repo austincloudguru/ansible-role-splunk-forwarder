@@ -8,4 +8,7 @@ index = {{ splunk_forwarder_index }}
 blacklist = \.bz2$
 ignoreOlderThan = 7d
 sourcetype = {{ splunk_forwarder_sourcetype }}
-{{ splunk_forwarder_logs }}
+
+{% for input_src in splunk_forwarder_logs %}
+[monitor://{{ input_src }}]
+{% endfor %}
