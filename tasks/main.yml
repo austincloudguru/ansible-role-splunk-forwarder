@@ -56,7 +56,7 @@
   when: splunk_forwarder_admin_user != "" and splunk_forwarder_admin_pass != ""
   tags: config_copy
 
-- name: Copy deploymentclient file 
+- name: Copy deploymentclient file
   template:
     src: deploymentclient.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
@@ -88,8 +88,8 @@
     state: present
     etype: user
     permissions: r
-    recursive: yes
-  become: True
+    recursive: true
+  become: true
   with_items: "{{ splunk_forwarder_logs }}"
 
 - name: Upload Splunk Systemd Script
