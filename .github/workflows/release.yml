@@ -8,8 +8,8 @@
 name: Release
 'on':
   push:
-    tags:
-      - '*'
+    branches:
+      - master
 
 defaults:
   run:
@@ -30,6 +30,13 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Ansible.
         run: pip3 install ansible-base
