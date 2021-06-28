@@ -1,0 +1,34 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  vars:
+    service_name: splunkd.service
+  vars_files:
+    - "../../defaults/main.yml"
+  tasks:
+    - name: Get the Groups
+      getent:
+        database: group
+
+    - name: Get the Users
+      getent:
+        database: passwd
+
+    - name: Assert Results
+      assert:
+        that:
+          - getent_passwd.splunk is defined
+          - getent_group.splunk is defined
+        quiet: true
+
+    - name: Gather service facts
+      service_facts:
+
+    - name: Print service facts
+      debug:
+        var: ansible_facts.services["{{ service_name }}"]
+
+    - name: Assert codedeploy-agent is running
+      assert:
+        that: ansible_facts.services["{{ service_name }}"]["state"] == "running"
