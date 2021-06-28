@@ -31,4 +31,4 @@
 
     - name: Assert codedeploy-agent is running
       assert:
-        that: ansible_facts.services["{{ service_name }}"]["state"] == "stopped"
+        that: ansible_facts.services["{{ service_name }}"]["state"] == "running"
