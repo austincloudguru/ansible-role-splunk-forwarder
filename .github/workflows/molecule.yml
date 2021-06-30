@@ -1,5 +1,5 @@
 ---
-name: CI
+name: Molecule
 'on':
   schedule:
     - cron: "0 8 * * *"
@@ -7,9 +7,6 @@ name: CI
     branches:
       - master
   push:
-    branches-ignore:
-      - master
-
 
 defaults:
   run:
