@@ -81,6 +81,11 @@
     backup: true
   tags: config_copy
 
+- name: Install the acl package
+  apt:
+    name: acl
+    update_cache: yes
+
 - name: Set logfile permissions
   acl:
     path: "{{ item }}"
