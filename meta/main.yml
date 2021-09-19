@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: splunk-forwarder
+  role_name: splunk_forwarder
   author: Mark Honomichl
   description: Installs the Splunk Forwarder
   company: AustinCloudGuru
