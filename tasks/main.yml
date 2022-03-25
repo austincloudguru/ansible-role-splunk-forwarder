@@ -1,13 +1,13 @@
 ---
 - name: Create Splunk group
-  group:
+  ansible.builtin.group:
     name: "{{ splunk_forwarder_group }}"
     gid: "{{ splunk_forwarder_gid }}"
     state: present
   tags: splunk_user
 
 - name: Create Splunk user
-  user:
+  ansible.builtin.user:
     name: "{{ splunk_forwarder_user }}"
     group: "{{ splunk_forwarder_group }}"
     uid: "{{ splunk_forwarder_uid }}"
@@ -15,40 +15,42 @@
   tags: splunk_user
 
 - name: Download the Splunk package (Debian/Ubuntu)
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ splunk_deb }}"
     dest: "/tmp/{{ splunk_forwarder_deb }}"
     checksum: "{{ splunk_deb_checksum }}"
+    mode: 0664
   when: ansible_os_family == "Debian"
 
 - name: Install Splunk (Debian/Ubuntu)
-  apt:
+  ansible.builtin.apt:
     deb: "/tmp/{{ splunk_forwarder_deb }}"
     state: present
   when: ansible_os_family == "Debian"
 
 - name: Download the Splunk package (CentOS)
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ splunk_rpm }}"
     dest: "/tmp/{{ splunk_forwarder_rpm }}"
     checksum: "{{ splunk_rpm_checksum }}"
+    mode: 0664
   when: ansible_os_family == "RedHat"
 
 - name: Install Splunk (python2 yum)
-  yum:
+  ansible.builtin.yum:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     state: present
   when: ansible_os_family == "RedHat" and ansible_facts.python.version.major | int < 3
 
 - name: Install Splunk (python3 dnf)
-  dnf:
+  ansible.builtin.dnf:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     disable_gpg_check: true
     state: present
   when: ansible_os_family == "RedHat" and ansible_facts.python.version.major | int >= 3
 
 - name: Copy user seeds file
-  template:
+  ansible.builtin.template:
     src: user-seed.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/user-seed.conf
     mode: 0664
@@ -57,7 +59,7 @@
   tags: config_copy
 
 - name: Copy deploymentclient file
-  template:
+  ansible.builtin.template:
     src: deploymentclient.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
     mode: 0664
@@ -66,7 +68,7 @@
   tags: config_copy
 
 - name: Copy inputs file
-  template:
+  ansible.builtin.template:
     src: inputs.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/inputs.conf
     mode: 0664
@@ -74,7 +76,7 @@
   tags: config_copy
 
 - name: Copy outputs file
-  template:
+  ansible.builtin.template:
     src: outputs.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/outputs.conf
     mode: 0664
@@ -82,7 +84,7 @@
   tags: config_copy
 
 - name: Set logfile permissions
-  acl:
+  ansible.builtin.acl:
     path: "{{ item }}"
     entity: "{{ splunk_forwarder_user }}"
     state: present
@@ -93,7 +95,7 @@
   with_items: "{{ splunk_forwarder_logs }}"
 
 - name: Upload Splunk Systemd Script
-  copy:
+  ansible.builtin.copy:
     src: splunk.service
     dest: /etc/systemd/system/splunkd.service
     owner: root

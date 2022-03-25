@@ -4,21 +4,21 @@
   become: true
   tasks:
     - name: Create Nginx Directory
-      file:
+      ansible.builtin.file:
         path: /var/log/nginx
         state: directory
         owner: root
         group: sys
         mode: 0775
     - name: Create Files
-      file:
+      ansible.builtin.file:
         path: /var/log/nginx/access.log
         state: touch
         owner: root
         group: sys
         mode: 0775
     - name: Create Files
-      file:
+      ansible.builtin.file:
         path: /var/log/nginx/error.log
         state: touch
         owner: root
