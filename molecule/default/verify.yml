@@ -8,27 +8,27 @@
     - "../../defaults/main.yml"
   tasks:
     - name: Get the Groups
-      getent:
+      ansible.builtin.getent:
         database: group
 
     - name: Get the Users
-      getent:
+      ansible.builtin.getent:
         database: passwd
 
     - name: Assert Results
-      assert:
+      ansible.builtin.assert:
         that:
           - getent_passwd.splunk is defined
           - getent_group.splunk is defined
         quiet: true
 
     - name: Gather service facts
-      service_facts:
+      ansible.builtin.service_facts:
 
     - name: Print service facts
-      debug:
+      ansible.builtin.debug:
         var: ansible_facts.services["{{ service_name }}"]
 
     - name: Assert codedeploy-agent is running
-      assert:
+      ansible.builtin.assert:
         that: ansible_facts.services["{{ service_name }}"]["state"] == "running"
