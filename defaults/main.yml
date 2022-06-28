@@ -8,10 +8,13 @@ splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{
 # splunk_url: "https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/{{ splunk_release }}/linux"
 splunk_forwarder_rpm: "splunkforwarder-8.2.5-77015bc7a462-linux-2.6-x86_64.rpm"
 splunk_forwarder_deb: "splunkforwarder-8.2.5-77015bc7a462-linux-2.6-amd64.deb"
+splunk_forwarder_arm: "splunkforwarder-8.2.5-77015bc7a462-Linux-armv8.tgz"
 splunk_rpm: "{{ splunk_url }}/{{ splunk_forwarder_rpm }}"
 splunk_deb: "{{ splunk_url }}/{{ splunk_forwarder_deb }}"
+splunk_arm: "{{ splunk_url }}/{{ splunk_forwarder_arm }}"
 splunk_deb_checksum: "md5:e8f2a6552cf75e1e425a2c545cb899a0"
 splunk_rpm_checksum: "md5:2388b7a22c7560d2a8a5932429c74f81"
+splunk_arm_checksum: "md5:11af2fd8bb7f2818ab7cf426ecafbc5b"
 
 
 # These may be removed at some point, but they are placeholders so I don't forget to set them
