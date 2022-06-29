@@ -20,13 +20,30 @@
     dest: "/tmp/{{ splunk_forwarder_deb }}"
     checksum: "{{ splunk_deb_checksum }}"
     mode: 0664
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and ansible_architecture != "aarch64"
 
 - name: Install Splunk (Debian/Ubuntu)
   ansible.builtin.apt:
     deb: "/tmp/{{ splunk_forwarder_deb }}"
     state: present
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and ansible_architecture != "aarch64"
+
+- name: Download the Splunk package (ARM processor/RaspberryPi)
+  ansible.builtin.get_url:
+    url: "{{ splunk_arm }}"
+    dest: "/tmp/{{ splunk_forwarder_arm }}"
+    checksum: "{{ splunk_arm_checksum }}"
+    mode: 0664
+  when: ansible_system == "Linux" and ansible_architecture == "aarch64"
+
+- name: Extract Splunk tgz into /opt/splunkforwarder
+  ansible.builtin.unarchive:
+    src: /tmp/{{ splunk_forwarder_arm }}
+    dest: /opt
+    remote_src: true
+    owner: "{{ splunk_forwarder_user }}"
+    group: "{{ splunk_forwarder_group }}"
+  when: ansible_system == "Linux" and ansible_architecture == "aarch64"
 
 - name: Download the Splunk package (CentOS)
   ansible.builtin.get_url:
@@ -34,20 +51,20 @@
     dest: "/tmp/{{ splunk_forwarder_rpm }}"
     checksum: "{{ splunk_rpm_checksum }}"
     mode: 0664
-  when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat" and ansible_architecture == "aarch64"
 
 - name: Install Splunk (python2 yum)
   ansible.builtin.yum:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     state: present
-  when: ansible_os_family == "RedHat" and ansible_facts.python.version.major | int < 3
+  when: ansible_os_family == "RedHat" and ansible_architecture == "aarch64" and ansible_facts.python.version.major | int < 3
 
 - name: Install Splunk (python3 dnf)
   ansible.builtin.dnf:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     disable_gpg_check: true
     state: present
-  when: ansible_os_family == "RedHat" and ansible_facts.python.version.major | int >= 3
+  when: ansible_os_family == "RedHat" and ansible_architecture == "aarch64" and ansible_facts.python.version.major | int >= 3
 
 - name: Copy user seeds file
   ansible.builtin.template:
