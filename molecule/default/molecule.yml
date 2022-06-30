@@ -1,6 +1,10 @@
 ---
 dependency:
   name: galaxy
+  options:
+    ignore-certs: true
+    ignore-errors: true
+    requirements-file: collections.yml
 driver:
   name: docker
 lint: |

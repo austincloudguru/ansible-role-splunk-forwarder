@@ -51,20 +51,20 @@
     dest: "/tmp/{{ splunk_forwarder_rpm }}"
     checksum: "{{ splunk_rpm_checksum }}"
     mode: 0664
-  when: ansible_os_family == "RedHat" and ansible_architecture == "aarch64"
+  when: ansible_os_family == "RedHat" and ansible_architecture != "aarch64"
 
 - name: Install Splunk (python2 yum)
   ansible.builtin.yum:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     state: present
-  when: ansible_os_family == "RedHat" and ansible_architecture == "aarch64" and ansible_facts.python.version.major | int < 3
+  when: ansible_os_family == "RedHat" and ansible_architecture != "aarch64" and ansible_facts.python.version.major | int < 3
 
 - name: Install Splunk (python3 dnf)
   ansible.builtin.dnf:
     name: "/tmp/{{ splunk_forwarder_rpm }}"
     disable_gpg_check: true
     state: present
-  when: ansible_os_family == "RedHat" and ansible_architecture == "aarch64" and ansible_facts.python.version.major | int >= 3
+  when: ansible_os_family == "RedHat" and ansible_architecture != "aarch64" and ansible_facts.python.version.major | int >= 3
 
 - name: Copy user seeds file
   ansible.builtin.template:
@@ -101,7 +101,7 @@
   tags: config_copy
 
 - name: Set logfile permissions
-  ansible.builtin.acl:
+  ansible.posix.acl:
     path: "{{ item }}"
     entity: "{{ splunk_forwarder_user }}"
     state: present
