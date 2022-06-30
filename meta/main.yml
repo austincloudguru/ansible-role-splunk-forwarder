@@ -6,7 +6,7 @@ galaxy_info:
   company: AustinCloudGuru
   license: MIT
   namespace: austincloudguru
-  min_ansible_version: 2.0
+  min_ansible_version: "2.0"
   platforms:
     - name: Amazon
       versions:
@@ -18,8 +18,7 @@ galaxy_info:
         - focal
     - name: EL
       versions:
-        - 7
-        - 8
+        - all
   galaxy_tags:
     - splunk
     - splunkforwarder

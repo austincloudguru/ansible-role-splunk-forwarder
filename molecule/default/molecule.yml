@@ -1,6 +1,10 @@
 ---
 dependency:
   name: galaxy
+  options:
+    ignore-certs: true
+    ignore-errors: true
+    requirements-file: collections.yml
 driver:
   name: docker
 lint: |
@@ -11,6 +15,13 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO}
     privileged: true
+    # cap_add:
+    #   - SYS_ADMIN
+    # security_opt:
+    #   - seccomp:unconfined
+    # tmpfs:
+    #   - /run
+    #   - /run/lock
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /lib/systemd/systemd
