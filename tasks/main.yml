@@ -53,7 +53,7 @@
       when: splunk_version_check.stdout != splunk_release
   when: ansible_system == "Linux" and ansible_architecture == "aarch64"
 
-- name: Install Splunk on Linux Based Arm Based Systems
+- name: Install Splunk on Enterprise Linux Based Systems
   block:
     - name: Download the Splunk package (Enterprise Linux)
       ansible.builtin.get_url:
