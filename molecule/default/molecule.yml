@@ -15,6 +15,7 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO}
     privileged: true
+    log: true
     # cap_add:
     #   - SYS_ADMIN
     # security_opt:
