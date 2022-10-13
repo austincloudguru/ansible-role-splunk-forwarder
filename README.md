@@ -32,6 +32,8 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_deb                                 # Default Deb Full URL
      splunk_deb_checksum                        # Default Deb Checksum
      splunk_rpm_checksum                        # Default RPM Checksum
+     splunk_forwarder_manage_inputs             # Bool whether to manage inputs.conf file, default: true
+     splunk_forwarder_manage_outputs            # Bool whether to manage outputs.conf file, default: true
 
 
 ### Playbook Variables

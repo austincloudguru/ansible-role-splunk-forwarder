@@ -17,9 +17,12 @@ splunk_deb_checksum: "md5:817637baad2f485b54a4fecac9f671b3"
 splunk_arm_checksum: "md5:20657ba28e2dff77def3eab6d0f7d7a8"
 
 
-# These may be removed at some point, but they are placeholders so I don't forget to set them
-splunk_forwarder_indexer: "splunk-indexer:9997"
+# Configuration of inputs (inputs.conf)
+splunk_forwarder_manage_inputs: true
 splunk_forwarder_index: "default"
 splunk_forwarder_sourcetype: "nginx"
-
 splunk_forwarder_logs: []
+
+# Configuration of outputs (outputs.conf)
+splunk_forwarder_manage_outputs: true
+splunk_forwarder_indexer: "splunk-indexer:9997"
