@@ -45,7 +45,7 @@ Within your playbook, you should set the following variables:
     splunk_forwarder_index:         # Set to the index that the forwarder should use i.e. "default"
     splunk_forwarder_sourcetype:    # Set the Source type i.e. "nginx"
 
-You also need to set what logs to forward.  You can do using yaml multiline:
+You also need to set what logs to forward. You can do so using a list:
 
     splunk_forwarder_logs:
       - /var/log/nginx/access.log
