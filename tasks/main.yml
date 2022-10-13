@@ -127,6 +127,6 @@
     dest: /etc/systemd/system/splunkd.service
     owner: root
     group: root
-    mode: 0755
+    mode: 0644
   notify: Enable Splunk Forwarder
   when: ansible_service_mgr == 'systemd'
