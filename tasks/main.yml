@@ -122,8 +122,8 @@
   with_items: "{{ splunk_forwarder_logs }}"
 
 - name: Upload Splunk Systemd Script
-  ansible.builtin.copy:
-    src: splunk.service
+  ansible.builtin.template:
+    src: splunkd.service.j2
     dest: /etc/systemd/system/splunkd.service
     owner: root
     group: root
