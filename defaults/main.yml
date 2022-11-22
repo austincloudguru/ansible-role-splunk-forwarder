@@ -23,6 +23,3 @@ splunk_forwarder_index: "default"
 splunk_forwarder_sourcetype: "nginx"
 
 splunk_forwarder_logs: []
-# splunk_forwarder_logs:
-#   - /var/log/nginx/access.log
-#   - /var/log/nginx/error.log

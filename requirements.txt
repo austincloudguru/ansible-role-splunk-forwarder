@@ -27,7 +27,7 @@ jinja2-time==0.2.0
 jsonschema==4.17.0
 MarkupSafe==2.1.1
 molecule==4.0.3
-molecule-docker==2.1.0
+molecule-docker==2.0.0
 mypy-extensions==0.4.3
 packaging==21.3
 pathspec==0.10.2
