@@ -1,5 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    splunk_forwarder_logs:
+      - /var/log/nginx/access.log
+      - /var/log/nginx/error.log
   roles:
     - role: austincloudguru.splunk_forwarder
