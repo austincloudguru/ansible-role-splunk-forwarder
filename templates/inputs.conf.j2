@@ -5,7 +5,7 @@
 [default]
 index = {{ splunk_forwarder_index }}
 
-blacklist = \.bz2$
+blacklist = {{ splunk_forwarder_input_blacklist }}
 ignoreOlderThan = 7d
 sourcetype = {{ splunk_forwarder_sourcetype }}
 
