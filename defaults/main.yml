@@ -17,7 +17,7 @@ splunk_deb_checksum: "md5:817637baad2f485b54a4fecac9f671b3"
 splunk_arm_checksum: "md5:20657ba28e2dff77def3eab6d0f7d7a8"
 
 #for inputs.conf, blacklist regexp of excluded file to monitor
-splunk_forwarder_input_blacklist: "\.bz2$"
+splunk_forwarder_input_blacklist: '\.bz2$'
 
 # These may be removed at some point, but they are placeholders so I don't forget to set them
 splunk_forwarder_indexer: "splunk-indexer:9997"
