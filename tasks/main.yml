@@ -25,7 +25,6 @@
   register: splunk_installed
 
 - name: Check Splunk Universal Forwarder Version Installed
-  when: splunk_installed.stat.exists
   ansible.builtin.shell: |
       set -o pipefail
       if [ -f /opt/splunkforwarder/bin/splunk ]; then
