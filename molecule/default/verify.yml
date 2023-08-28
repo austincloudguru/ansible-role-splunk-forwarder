@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   vars:
-    service_name: splunkforwarder.service
+    service_name: splunk.service
   vars_files:
     - "../../defaults/main.yml"
   tasks:
@@ -29,6 +29,6 @@
       ansible.builtin.debug:
         var: ansible_facts.services["{{ service_name }}"]
 
-    - name: Assert splunkforwarder service is running
+    - name: Assert splunk forwarder service is running
       ansible.builtin.assert:
         that: ansible_facts.services["{{ service_name }}"]["state"] == "running"
