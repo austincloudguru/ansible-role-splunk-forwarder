@@ -26,12 +26,6 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_forwarder_gid                       # Default GID (10011)
      splunk_release                             # Default Release Version (7.1.3)
      splunk_url                                 # Default Download URL              
-     splunk_forwarder_rpm                       # Default Splunk RPM Name
-     splunk_forwarder_deb                       # Default Splunk Deb Name
-     splunk_rpm                                 # Default RPM Full URL
-     splunk_deb                                 # Default Deb Full URL
-     splunk_deb_checksum                        # Default Deb Checksum
-     splunk_rpm_checksum                        # Default RPM Checksum
 
 
 ### Playbook Variables
