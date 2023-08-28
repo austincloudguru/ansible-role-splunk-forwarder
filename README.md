@@ -48,10 +48,9 @@ Within your playbook, you should set the following variables:
 
 You also need to set what logs to forward. You can do so using a list:
 
-    splunk_forwarder_logs = [
-      {"path": "/var/log/nginx/access.log", "sourcetype": "nginx", "index": "nginx"},
-      {"path": "/var/log/nginx/error.log", "sourcetype": "nginx", "index": "nginx"}
-    ]
+    splunk_forwarder_logs:
+      - { 'path': '/var/log/nginx/access.log', 'sourcetype': 'nginx', 'index': 'nginx' }
+      - { 'path': '/var/log/nginx/error.log', 'sourcetype': 'nginx', 'index': 'nginx' }
 
 Dependencies
 ------------
