@@ -38,7 +38,7 @@
 - name: Install Splunk Forwarder Client
   when: splunk_version_check.stdout != splunk_release
   notify:
-    - Enable Splunk Forwarder Systemd Config
+    - Accept Splunk License
     - Clear config for Cloning
   block:
 
@@ -106,12 +106,12 @@
   become: true
   with_items: "{{ splunk_forwarder_logs }}"
 
-# - name: Upload Splunk Systemd Script
-#   ansible.builtin.template:
-#     src: splunkd.service.j2
-#     dest: /etc/systemd/system/splunkd.service
-#     owner: root
-#     group: root
-#     mode: 0644
-#   notify: Enable Splunk Forwarder
-#   when: ansible_service_mgr == 'systemd'
+- name: Upload Splunk Systemd Script
+  ansible.builtin.template:
+    src: splunkd.service.j2
+    dest: /etc/systemd/system/splunkd.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Enable Splunk Forwarder
+  when: ansible_service_mgr == 'systemd'
