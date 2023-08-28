@@ -7,7 +7,7 @@
 
 - name: Enable Splunk Forwarder Systemd Config
   ansible.builtin.command: /opt/splunkforwarder/bin/splunk enable boot-start -user splunk -systemd-managed 1 --accept-license --answer-yes --no-prompt
-  when: splunk_installed.stat.exists == false
+  when: not splunk_installed.stat.exists
 
 - name: Clear config for Cloning
   ansible.builtin.command: /opt/splunkforwarder/bin/splunk clone-prep-clear-config
