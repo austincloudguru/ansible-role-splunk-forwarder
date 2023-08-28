@@ -19,7 +19,13 @@
     state: present
   tags: splunk_user
 
+- name: Check if Splunk is installed
+  ansible.builtin.stat:
+    path: /opt/splunkforwarder/bin/splunk
+  register: splunk_installed
+
 - name: Check Splunk Universal Forwarder Version Installed
+  when: splunk_installed.stat.exists
   ansible.builtin.shell: |
       set -o pipefail
       if [ -f /opt/splunkforwarder/bin/splunk ]; then
@@ -32,6 +38,9 @@
 
 - name: Install Splunk Forwarder Client
   when: splunk_version_check.stdout != splunk_release
+  notify:
+    - Enable Splunk Forwarder Systemd Config
+    - Clear config for Cloning
   block:
 
     - name: Install Splunk Forwarder on Debian
@@ -107,9 +116,3 @@
 #     mode: 0644
 #   notify: Enable Splunk Forwarder
 #   when: ansible_service_mgr == 'systemd'
-
-- name: Enable Boot Start Using Systemd and Accept the License
-  command: /opt/splunkforwarder/bin/splunk enable boot-start -user splunk -systemd-managed 1 --accept-license --answer-yes --no-prompt
-
-- name: Clear config for Cloning
-  command: /opt/splunkforwarder/bin/splunk clone-prep-clear-config

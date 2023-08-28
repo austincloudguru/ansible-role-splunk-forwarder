@@ -3,6 +3,7 @@ splunk_forwarder_user: "splunk"
 splunk_forwarder_group: "splunk"
 splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
+building_image: false
 splunk_release: "9.1.0.1"
 splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux/"
 splunk_forwarder_download:
@@ -86,5 +87,4 @@ splunk_forwarder_output_cipher_suite:
   - 'ECDHE-RSA-AES128-GCM-SHA256'
 splunk_forwarder_default_index: "main"
 splunk_forwarder_default_sourcetype: "syslog"
-
 splunk_forwarder_logs: []
