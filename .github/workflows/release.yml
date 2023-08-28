@@ -13,7 +13,7 @@ name: Release
 
 defaults:
   run:
-    working-directory: 'austincloudguru.splunk-forwarder'
+    working-directory: 'troyfontaine.splunk-forwarder'
 
 jobs:
 
@@ -24,7 +24,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'austincloudguru.splunk-forwarder'
+          path: 'troyfontaine.splunk-forwarder'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
