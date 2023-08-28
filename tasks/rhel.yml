@@ -2,9 +2,12 @@
 - name: Install Splunk on AMD64 Enterprise Linux Based Systems
   when: ansible_architecture != "aarch64"
   block:
-    - name: Set URL Fact
+    - name: Set Package Name
       ansible.builtin.set_fact:
         rpm_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string'] }}-linux-2.6-x86_64.rpm"
+
+    - name: Set Download URL
+      ansible.builtin.set_fact:
         rpm_url: "{{ splunk_url }}/{{ splunk_release }}/linux/{{ rpm_name }}"
 
     - name: Download the Splunk package (Enterprise Linux)
@@ -36,9 +39,12 @@
       ansible.builtin.set_fact:
         file_extension: "{% if splunk_release >= '9.1.0' %}.aarch64{% else %}-Linux-armv8{% endif %}.rpm"
 
-    - name: Set URL Fact
+    - name: Set Package Name
       ansible.builtin.set_fact:
         rpm_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string'] }}{{ file_extension }}"
+
+    - name: Set Download URL
+      ansible.builtin.set_fact:
         rpm_url: "{{ splunk_url }}/{{ splunk_release }}/linux/{{ rpm_name }}"
 
     - name: Download the Splunk package (Enterprise Linux)
