@@ -125,8 +125,8 @@
 
 # - name: Upload SplunkForwarder Systemd Script
 #   ansible.builtin.template:
-#     src: SplunkForwarder.service.j2
-#     dest: /etc/systemd/system/SplunkForwarder.service
+#     src: splunkd.service.j2
+#     dest: /etc/systemd/system/splunkd.service
 #     owner: root
 #     group: root
 #     mode: 0644
