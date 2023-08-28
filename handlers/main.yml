@@ -5,12 +5,6 @@
     enabled: true
     state: started
 
-- name: Accept Splunk License
-  become_user: splunk
-  # ansible.builtin.command: /opt/splunkforwarder/bin/splunk --accept-license --answer-yes --no-prompt
-  ansible.builtin.command: "/opt/splunkforwarder/bin/splunk enable boot-start -systemd-managed 1 -user {{ splunk_forwarder_user }} -group {{ splunk_forwarder_group }} --accept-license --answer-yes --no-prompt"
-  when: not splunk_installed.stat.exists
-
 - name: Clear config for Cloning
   ansible.builtin.command: /opt/splunkforwarder/bin/splunk clone-prep-clear-config
   when: building_image

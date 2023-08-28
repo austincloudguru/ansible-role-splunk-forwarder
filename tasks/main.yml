@@ -39,7 +39,6 @@
 - name: Install Splunk Forwarder Client
   when: splunk_version_check.stdout != splunk_release
   notify:
-    - Accept Splunk License
     - Enable Splunk Forwarder
     - Clear config for Cloning
   block:
@@ -133,3 +132,9 @@
 #     mode: 0644
 #   notify: Enable Splunk Forwarder
 #   when: ansible_service_mgr == 'systemd'
+
+- name: Accept Splunk License
+  become_user: splunk
+  # ansible.builtin.command: /opt/splunkforwarder/bin/splunk --accept-license --answer-yes --no-prompt
+  ansible.builtin.command: "/opt/splunkforwarder/bin/splunk enable boot-start -systemd-managed 1 -user {{ splunk_forwarder_user }} -group {{ splunk_forwarder_group }} --accept-license --answer-yes --no-prompt"
+  when: not splunk_installed.stat.exists
