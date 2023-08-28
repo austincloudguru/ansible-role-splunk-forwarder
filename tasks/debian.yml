@@ -8,7 +8,7 @@
 
     - name: Set Download URL
       ansible.builtin.set_fact:
-        deb_url: "{{ splunk_url }}/{{ splunk_release }}/linux/{{ deb_name }}"
+        deb_url: "{{ splunk_url }}{{ deb_name }}"
 
     - name: Download the Splunk package (Debian/Ubuntu)
       ansible.builtin.get_url:
@@ -32,7 +32,7 @@
 
     - name: Set Download URL
       ansible.builtin.set_fact:
-        deb_url: "{{ splunk_url }}/{{ splunk_release }}/linux/{{ deb_name }}"
+        deb_url: "{{ splunk_url }}{{ deb_name }}"
 
     - name: Download the Splunk package (Debian/Ubuntu)
       ansible.builtin.get_url:
