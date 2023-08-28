@@ -6,7 +6,7 @@ FROM {{ item.registry.url }}/{{ item.image }}
 FROM {{ item.image }}
 {% endif %}
 
-RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get install -y acl python sudo bash ca-certificates rsyslog postfix iproute2 systemd unzip xz-utils && apt-get clean; \
+RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get install -y acl python3 sudo bash ca-certificates rsyslog postfix iproute2 systemd unzip xz-utils && apt-get clean; \
     elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install python38 sudo python38-devel python3-dnf bash unzip tar dbus && dnf clean all; \
     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y python shadow-utils acl openssh-server systemd systemd-libs initscripts sudo unzip gzip tar yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all; \
     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python sudo bash python-xml && zypper clean -a; \

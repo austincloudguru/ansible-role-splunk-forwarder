@@ -59,7 +59,7 @@
     file_type: any
     recurse: true
   register: splunk_contents
-  when: not splunk_installed.stat.exists
+  when: not splunk_installed.stat.exists and splunk_forwarder_user != "splunkfwd"
 
 - name: "Recursively change ownership of $SPLUNK_HOME"
   ansible.builtin.file:
@@ -67,7 +67,7 @@
     owner: "{{ splunk_forwarder_user }}"
     group: "{{ splunk_forwarder_group }}"
   loop: "{{ splunk_contents.files }}"
-  when: not splunk_installed.stat.exists
+  when: not splunk_installed.stat.exists and splunk_forwarder_user != "splunkfwd"
 
 - name: Copy user seeds file
   ansible.builtin.template:

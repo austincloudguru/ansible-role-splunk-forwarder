@@ -1,7 +1,7 @@
 ---
 splunk_home: "/opt/splunkforwarder"
-splunk_forwarder_user: "splunk"
-splunk_forwarder_group: "splunk"
+splunk_forwarder_user: "splunkfwd"
+splunk_forwarder_group: "splunkfwd"
 splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
 building_image: false
