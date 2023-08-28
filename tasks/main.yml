@@ -55,7 +55,7 @@
 
 - name: "Find all directories within $SPLUNK_HOME/var"
   ansible.builtin.find:
-    path: "{{ splunk_home }}/var/"
+    path: "{{ splunk_home }}var"
     file_type: any
     recurse: true
   register: splunk_var_contents
