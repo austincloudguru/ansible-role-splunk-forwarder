@@ -1,16 +1,17 @@
 ---
 - name: Install Splunk on AMD64 Enterprise Linux Based Systems
+  when: ansible_architecture != "aarch64"
   block:
     - name: Set URL Fact
       ansible.builtin.set_fact:
-        rpm_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string']}}-linux-2.6-x86_64.rpm"
+        rpm_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string'] }}-linux-2.6-x86_64.rpm"
         rpm_url: "{{ splunk_url }}/{{ splunk_release }}/linux/{{ rpm_name }}"
 
     - name: Download the Splunk package (Enterprise Linux)
       ansible.builtin.get_url:
         url: "{{ rpm_url }}"
         dest: "/tmp/{{ rpm_name }}"
-        checksum: "{{ splunk_forwarder_download[splunk_release]['amd64_rpm_hash']}}"
+        checksum: "{{ splunk_forwarder_download[splunk_release]['amd64_rpm_hash'] }}"
         mode: 0664
 
     - name: Install Splunk (python2 yum)
@@ -25,9 +26,9 @@
         disable_gpg_check: true
         state: present
       when: ansible_facts.python.version.major | int >= 3
-  when: ansible_architecture != "aarch64"
 
 - name: Install Splunk on arm64 Enterprise Linux Based Systems
+  when: ansible_architecture == "aarch64"
   block:
     # https://download.splunk.com/products/universalforwarder/releases/9.0.3/linux/splunkforwarder-9.0.3-dd0128b1f8cd-Linux-armv8.rpm
     # https://download.splunk.com/products/universalforwarder/releases/9.1.0/linux/splunkforwarder-9.1.0-1c86ca0bacc3.aarch64.rpm
@@ -37,14 +38,14 @@
 
     - name: Set URL Fact
       ansible.builtin.set_fact:
-        rpm_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string']}}{{ file_extension }}"
+        rpm_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string'] }}{{ file_extension }}"
         rpm_url: "{{ splunk_url }}/{{ splunk_release }}/linux/{{ rpm_name }}"
 
     - name: Download the Splunk package (Enterprise Linux)
       ansible.builtin.get_url:
         url: "{{ rpm_url }}"
         dest: "/tmp/{{ rpm_name }}"
-        checksum: "{{ splunk_forwarder_download[splunk_release]['arm64_rpm_hash']}}"
+        checksum: "{{ splunk_forwarder_download[splunk_release]['arm64_rpm_hash'] }}"
         mode: 0664
 
     - name: Install Splunk (python2 yum)
@@ -59,4 +60,3 @@
         disable_gpg_check: true
         state: present
       when: ansible_facts.python.version.major | int >= 3
-  when: ansible_architecture == "aarch64"
