@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   vars:
-    service_name: splunk.service
+    service_name: SplunkForwarder.service
   vars_files:
     - "../../defaults/main.yml"
   tasks:
@@ -24,10 +24,6 @@
 
     - name: Gather service facts
       ansible.builtin.service_facts:
-
-    - name: Print service facts
-      ansible.builtin.debug:
-        var: ansible_facts.services
 
     - name: Print service facts
       ansible.builtin.debug:

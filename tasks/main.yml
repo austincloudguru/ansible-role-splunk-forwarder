@@ -40,6 +40,7 @@
   when: splunk_version_check.stdout != splunk_release
   notify:
     - Accept Splunk License
+    - Enable Splunk Forwarder
     - Clear config for Cloning
   block:
 
