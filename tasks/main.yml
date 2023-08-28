@@ -52,15 +52,16 @@
         file: rhel.yml
       when: ansible_os_family == "RedHat"
 
-- name: "Find all directories within {{ splunk_home }}/var"
+- name: "Find all directories within $SPLUNK_HOME/var"
   ansible.builtin.find:
     path: "{{ splunk_home }}/var/"
     file_type: any
     recurse: true
   register: splunk_var_contents
+  when: not splunk_installed.stat.exists
 
-- name: "Recursively change ownership of {{ splunk_home }}/var"
-  file:
+- name: "Recursively change ownership of $SPLUNK_HOME/var"
+  ansible.builtin.file:
     path: "{{ item.path }}"
     owner: "{{ splunk_forwarder_user }}"
     group: "{{ splunk_forwarder_group }}"
