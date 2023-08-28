@@ -24,13 +24,13 @@
 
     - name: Install Splunk (python2 yum)
       ansible.builtin.yum:
-        name: "/tmp/{{ splunk_forwarder_rpm }}"
+        name: "/tmp/{{ rpm_name }}"
         state: present
       when: ansible_facts.python.version.major | int < 3
 
     - name: Install Splunk (python3 dnf)
       ansible.builtin.dnf:
-        name: "/tmp/{{ splunk_forwarder_rpm }}"
+        name: "/tmp/{{ rpm_name }}"
         disable_gpg_check: true
         state: present
       when: ansible_facts.python.version.major | int >= 3
