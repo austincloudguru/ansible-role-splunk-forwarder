@@ -5,7 +5,6 @@ splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
 splunk_release: "9.0.2"
 splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux"
-# splunk_url: "https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/{{ splunk_release }}/linux"
 splunk_forwarder_rpm: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-x86_64.rpm"
 splunk_forwarder_deb: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-amd64.deb"
 splunk_forwarder_arm: "splunkforwarder-9.0.2-17e00c557dc1-Linux-armv8.tgz"
@@ -15,11 +14,22 @@ splunk_arm: "{{ splunk_url }}/{{ splunk_forwarder_arm }}"
 splunk_rpm_checksum: "md5:4faa1073d4b4f5c2ca46a8e6d71d4737"
 splunk_deb_checksum: "md5:817637baad2f485b54a4fecac9f671b3"
 splunk_arm_checksum: "md5:20657ba28e2dff77def3eab6d0f7d7a8"
-
-
-# These may be removed at some point, but they are placeholders so I don't forget to set them
-splunk_forwarder_indexer: "splunk-indexer:9997"
-splunk_forwarder_index: "default"
-splunk_forwarder_sourcetype: "nginx"
+splunk_forwarder_indexer_hostname:
+  - "splunk-hostname1"
+splunk_forwarder_indexer_notls_port: 9997
+splunk_forwarder_indexer_tls_port: 9998
+splunk_forwarder_output_use_tls: false
+# Configure the splunk_forwarder_output_client_cert_path to
+# use Mutual TLS Auth
+splunk_forwarder_output_client_cert_path: ""
+# Configure the splunk_forwarder_output_root_ca_path to
+# enable sslVerifyServerCert
+splunk_forwarder_output_root_ca_path: ""
+splunk_forwarder_output_ssl_version: "tls1.2"
+splunk_forwarder_output_cipher_suite:
+  - 'DHE-RSA-AES128-GCM-SHA256'
+  - 'ECDHE-RSA-AES128-GCM-SHA256'
+splunk_forwarder_default_index: "main"
+splunk_forwarder_default_sourcetype: "syslog"
 
 splunk_forwarder_logs: []

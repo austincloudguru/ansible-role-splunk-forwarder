@@ -3,6 +3,12 @@ defaultGroup = splunk
 disabled = false
 
 [tcpout:splunk]
-server = {{ splunk_forwarder_indexer }}
-
-[tcpout-server://{{ splunk_forwarder_indexer }}]
+{% if splunk_forwarder_output_use_tls %}
+server ={% for indexer in splunk_forwarder_indexer %} {{ indexer }}:{{ splunk_forwarder_indexer_tls_port }}{% if not loop.last %}, {% endif %} {% endfor %}
+{% else %}
+server ={% for indexer in splunk_forwarder_indexer %} {{ indexer }}:{{ splunk_forwarder_indexer_notls_port }}{% if not loop.last %}, {% endif %} {% endfor %}
+{% endif %}
+disabled = 0
+{% if splunk_forwarder_output_client_cert_path is defined and splunk_forwarder_output_use_tls %}
+clientCert = {{ splunk_forwarder_output_client_cert_path }}
+{% endif %}

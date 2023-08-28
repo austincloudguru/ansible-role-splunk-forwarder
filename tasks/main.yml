@@ -110,6 +110,14 @@
     backup: true
   tags: config_copy
 
+- name: Copy server file
+  ansible.builtin.template:
+    src: server.conf.j2
+    dest: /opt/splunkforwarder/etc/system/local/server.conf
+    mode: 0664
+    backup: true
+  tags: config_copy
+
 - name: Set logfile permissions
   ansible.posix.acl:
     path: "{{ item }}"
