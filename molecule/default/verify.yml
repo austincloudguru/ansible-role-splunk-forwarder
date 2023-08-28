@@ -18,8 +18,8 @@
     - name: Assert Results
       ansible.builtin.assert:
         that:
-          - getent_passwd.splunk is defined
-          - getent_group.splunk is defined
+          - getent_passwd.splunkfwd is defined
+          - getent_group.splunkfwd is defined
         quiet: true
 
     - name: Gather service facts
