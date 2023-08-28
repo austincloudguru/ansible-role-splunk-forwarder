@@ -3,7 +3,7 @@ splunk_forwarder_user: "splunk"
 splunk_forwarder_group: "splunk"
 splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
-splunk_release: "9.0.2"
+splunk_release: "9.1.0.1"
 splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux"
 splunk_forwarder_rpm: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-x86_64.rpm"
 splunk_forwarder_deb: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-amd64.deb"
@@ -14,6 +14,70 @@ splunk_arm: "{{ splunk_url }}/{{ splunk_forwarder_arm }}"
 splunk_rpm_checksum: "md5:4faa1073d4b4f5c2ca46a8e6d71d4737"
 splunk_deb_checksum: "md5:817637baad2f485b54a4fecac9f671b3"
 splunk_arm_checksum: "md5:20657ba28e2dff77def3eab6d0f7d7a8"
+splunk_forwarder_download:
+  7.2.4.2:
+    string: 'fb30470262e3'
+    amd64_deb_hash: 'md5:e49dfa8b0a0e13153ae36e5a13b77f34'
+  8.2.8:
+    string: 'da25d08d5d3e'
+    amd64_deb_hash: 'md5:5bc0f5cec97705070a0682bdf7c20271'
+    amd64_rpm_hash: 'md5:e97748e5c9b325bcd3498746b7d68819'
+  8.2.9:
+    string: '4a20fb65aa78'
+    amd64_deb_hash: 'md5:5e722508e996c14a6cff027c62a9498b'
+    amd64_rpm_hash: 'md5:fe7d0d09ce07e9fb9bddc04f71ce40ae'
+  9.0.0:
+    string: '6818ac46f2ec'
+    amd64_deb_hash: 'md5:0592380734582b2075544fdba97e9368'
+    amd64_rpm_hash: 'md5:45872e845b8f7fb526aec0a3af407e80'
+  9.0.0.1:
+    string: '9e907cedecb1'
+    amd64_deb_hash: 'md5:ef6c8ae27fc022427a6363c7c777add5'
+    amd64_rpm_hash: 'md5:e6b471e295a53fd8d95d20d5f937e6d0'
+  9.0.1:
+    string: '82c987350fde'
+    amd64_deb_hash: 'md5:8328171a513e146b4661fc18aefba1d6'
+    amd64_rpm_hash: 'md5:2a9511d668687fed338a2c0d56231006'
+  9.0.2:
+    string: '17e00c557dc1'
+    amd64_deb_hash: 'md5:817637baad2f485b54a4fecac9f671b3'
+    amd64_rpm_hash: 'md5:4faa1073d4b4f5c2ca46a8e6d71d4737'
+    arm64_deb_hash: 'md5:42c179cad4e33dd2033eff12c16d99de'
+    arm64_rpm_hash: 'md5:ac088905b00a576f13fcdeb388ec82c1'
+  9.0.3:
+    string: 'dd0128b1f8cd'
+    amd64_deb_hash: 'md5:6aa3b5f9fd97bb639e14e8808098fe4b'
+    amd64_rpm_hash: 'md5:73ecd47dbb4a319509f60567766d74f6'
+    arm64_deb_hash: 'md5:3361dd526b9c46421607cdc995fcbe5e'
+    arm64_rpm_hash: 'md5:0f8323bc9c3ccec5dc00e1cc13b1dbc9'
+  9.0.4:
+    string: 'de405f4a7979'
+    amd64_deb_hash: 'md5:8b032dc053aff34b43397a0a9df9c91b'
+    amd64_rpm_hash: 'md5:b2a72556d71faee1825a559eaa25aa31'
+    arm64_deb_hash: 'md5:8fc6a7283a84778c2677fe3c9ea4bd45'
+    arm64_rpm_hash: 'md5:3640e396f931860c5261d4add9223ab3'
+  9.0.5:
+    string: 'e9494146ae5c'
+    amd64_deb_hash: 'md5:a35b291973724144860cbf82da03fd46'
+    amd64_rpm_hash: 'md5:c154734ac0a57f39bcb998c55a608772'
+    arm64_deb_hash: 'md5:17452ef02752f32712c6d02eab38d3a9'
+    arm64_rpm_hash: 'md5:d489a40ef15559989e42453f26d1e86c'
+  9.1.0:
+    string: '1c86ca0bacc3'
+    amd64_deb_hash: 'md5:123610c193d6aad508c6562482856d93'
+    amd64_rpm_hash: 'md5:e3df931c5bc41fa29da0d8d458891007'
+    arm64_deb_hash: 'md5:7b8957d543b2962e59e6a176b5ab4578'
+    # RPM now uses aarch64 instead of armv8
+    arm64_rpm_hash: 'md5:cb8075d514b2ee7478d1bc4964ee60e0'
+  9.1.0.1:
+    string: '77f73c9edb85'
+    amd64_deb_hash: 'md5:c467d4dceab0915583f7d95a071b5a10'
+    amd64_rpm_hash: 'md5:117c83c43cadd300d5d61e6c98d380cc'
+    arm64_deb_hash: 'md5:408333bbf58a7ab234fa3124e84b75aa'
+    # RPM now uses aarch64 instead of armv8
+    arm64_rpm_hash: 'md5:a0bf2787825391060c8510770364b7a0'
+
+
 splunk_forwarder_indexer_hostname:
   - "splunk-hostname1"
 splunk_forwarder_indexer_notls_port: 9997
