@@ -7,8 +7,8 @@
 
 - name: Accept Splunk License
   become_user: splunk
-  ansible.builtin.command: /opt/splunkforwarder/bin/splunk --accept-license --answer-yes --no-prompt
-  # ansible.builtin.command: /opt/splunkforwarder/bin/splunk enable boot-start -user splunk -systemd-managed 1 --accept-license --answer-yes --no-prompt
+  #ansible.builtin.command: /opt/splunkforwarder/bin/splunk --accept-license --answer-yes --no-prompt
+  ansible.builtin.command: /opt/splunkforwarder/bin/splunk enable boot-start -user splunk -systemd-managed 1 --accept-license --answer-yes --no-prompt -auth :{{ splunk_forwarder_admin_pass }} 
   when: not splunk_installed.stat.exists
 
 - name: Clear config for Cloning
