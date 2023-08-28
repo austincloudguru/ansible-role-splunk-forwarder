@@ -52,6 +52,21 @@
         file: rhel.yml
       when: ansible_os_family == "RedHat"
 
+- name: "Find all directories within {{ splunk_home }}/var"
+  ansible.builtin.find:
+    path: "{{ splunk_home }}/var/"
+    file_type: any
+    recurse: true
+  register: splunk_var_contents
+
+- name: "Recursively change ownership of {{ splunk_home }}/var"
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ splunk_forwarder_user }}"
+    group: "{{ splunk_forwarder_group }}"
+  loop: "{{ splunk_var_contents.files }}"
+  when: not splunk_installed.stat.exists
+
 - name: Copy user seeds file
   ansible.builtin.template:
     src: user-seed.conf.j2

@@ -1,4 +1,5 @@
 ---
+splunk_home: "/opt/splunkforwarder/"
 splunk_forwarder_user: "splunk"
 splunk_forwarder_group: "splunk"
 splunk_forwarder_uid: "10011"
@@ -88,5 +89,5 @@ splunk_forwarder_output_cipher_suite:
 splunk_forwarder_default_index: "main"
 splunk_forwarder_default_sourcetype: "syslog"
 splunk_forwarder_logs: []
-splunk_forwarder_admin_user: admin
-splunk_forwarder_admin_pass: changeme
+# splunk_forwarder_admin_user: admin
+# splunk_forwarder_admin_pass: changeme
