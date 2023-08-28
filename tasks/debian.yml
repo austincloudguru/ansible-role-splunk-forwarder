@@ -18,7 +18,7 @@
       ansible.builtin.apt:
         deb: "/tmp/{{ deb_name }}"
         state: present
-  
+
 
 - name: Install Splunk on Debian arm64 Based Systems
   when: ansible_architecture == "aarch64"
