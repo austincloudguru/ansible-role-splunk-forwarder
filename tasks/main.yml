@@ -30,8 +30,6 @@
   register: splunk_version_check
   changed_when: splunk_version_check.stdout != splunk_release
 
-
-
 - name: Install Splunk Forwarder Client
   block:
 
