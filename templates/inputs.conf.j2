@@ -11,8 +11,16 @@ sourcetype = {{ splunk_forwarder_default_sourcetype }}
 
 {% for input_src in splunk_forwarder_logs %}
 [monitor://{{ input_src.path }}]
+{% if input_src.disabled is defined %}
+disabled = 1
+{% else %}
+disabled = 0
+{% endif %}
 {% if input_src.sourcetype is defined %}
 sourcetype = {{ input_src.sourcetype}}
+{% endif %}
+{% if input_src.crcsalt is defined %}
+crcSalt = {{ input_src.crcsalt }}
 {% endif %}
 {% if input_src.index is defined %}
 index = {{ input_src.index }}
