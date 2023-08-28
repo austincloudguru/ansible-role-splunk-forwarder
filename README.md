@@ -35,7 +35,7 @@ Within your playbook, you should set the following variables:
     splunk_forwarder_admin_user:            # Set the administrative user for the forwarder
     splunk_forwarder_admin_pass:            # Set the administrative password for the forwarder
     splunk_forwarder_depl_server:           # Set to the URL:Port of your splunk deployment server i.e. "splunk-mgt:8089" (optional)
-    splunk_forwarder_indexer_hostname:      # Set to the URL of your splunk indexer i.e. "splunk-indexer"
+    splunk_forwarder_indexer_hostname:      # Set to a list of the hostnames of your splunk indexer(s) i.e. "splunk-indexer"
     splunk_forwarder_output_use_tls:        # Set to true then adjust your variables as necessary
     splunk_forwarder_default_index:         # Set to the index that the forwarder should use i.e. "default"
     splunk_forwarder_default_sourcetype:    # Set the Source type i.e. "nginx"
@@ -60,7 +60,7 @@ You should define the required variables in your playbook and call the role:
       remote_user: ec2-user
       become: True
       vars:
-        splunk_forwarder_indexer:
+        splunk_forwarder_indexer_hostname:
           - "splunk-indexer:9997"
         splunk_forwarder_default_index: "prodapps"
         splunk_forwarder_default_sourcetype: "nginx"
