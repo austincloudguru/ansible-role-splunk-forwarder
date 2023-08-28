@@ -27,6 +27,10 @@
 
     - name: Print service facts
       ansible.builtin.debug:
+        var: ansible_facts.services
+
+    - name: Print service facts
+      ansible.builtin.debug:
         var: ansible_facts.services["{{ service_name }}"]
 
     - name: Assert splunk forwarder service is running
