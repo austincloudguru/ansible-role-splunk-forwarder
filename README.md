@@ -9,7 +9,7 @@ This role will deploy the Splunk universal forwarder.
 Requirements
 ------------
 
-This role is tested on Ubuntu 16.04, 18.04 and CentOS 7, 8, but should probably work on any systemd based system.  The previous version of this role is available as a tag (v1.0)
+This role is tested on Ubuntu 16.04, 18.04, 20.04, 22.04 and Oracle Linux 8, but should probably work on any systemd based system.  The previous version of this role is available as a tag (v1.0)
 
 
 Role Variables
@@ -24,7 +24,7 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_forwarder_group                     # Default Group (splunk)
      splunk_forwarder_uid                       # Default UID (10011)
      splunk_forwarder_gid                       # Default GID (10011)
-     splunk_release                             # Default Release Version (7.1.3)
+     splunk_release                             # Default Release Version (9.1.0.1)
      splunk_url                                 # Default Download URL              
 
 
