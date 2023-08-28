@@ -34,7 +34,7 @@
     # https://download.splunk.com/products/universalforwarder/releases/9.1.0/linux/splunkforwarder-9.1.0-1c86ca0bacc3.aarch64.rpm
     - name: Set architecture flag based on splunk version
       ansible.builtin.set_fact:
-        file_extension: "{% if splunk_release>='9.1.0' %}.aarch64{% else %}-Linux-armv8{% endif %}.rpm"
+        file_extension: "{% if splunk_release >= '9.1.0' %}.aarch64{% else %}-Linux-armv8{% endif %}.rpm"
 
     - name: Set URL Fact
       ansible.builtin.set_fact:

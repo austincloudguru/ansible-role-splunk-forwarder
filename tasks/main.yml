@@ -31,6 +31,7 @@
   changed_when: splunk_version_check.stdout != splunk_release
 
 - name: Install Splunk Forwarder Client
+  when: splunk_version_check.stdout != splunk_release
   block:
 
     - name: Install Splunk Forwarder on Debian
@@ -42,8 +43,6 @@
       ansible.builtin.include_tasks:
         file: rhel.yml
       when: ansible_os_family == "RedHat"
-
-  when: splunk_version_check.stdout != splunk_release
 
 - name: Copy user seeds file
   ansible.builtin.template:

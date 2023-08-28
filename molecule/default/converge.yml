@@ -2,8 +2,9 @@
 - name: Converge
   hosts: all
   vars:
-    splunk_forwarder_logs:
-      - /var/log/nginx/access.log
-      - /var/log/nginx/error.log
+    - splunk_forwarder_logs: [
+        {"path": "/var/log/nginx/access.log", "sourcetype": "nginx", "index": "nginx"},
+        {"path": "/var/log/nginx/error.log", "sourcetype": "nginx", "index": "nginx"}
+      ]
   roles:
-    - role: austincloudguru.splunk_forwarder
+    - role: troyfontaine.splunk_forwarder
