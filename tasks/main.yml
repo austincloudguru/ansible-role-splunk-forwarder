@@ -25,10 +25,11 @@
   register: splunk_installed
 
 - name: Check Splunk Universal Forwarder Version Installed
+  # -auth :{{ splunk_forwarder_admin_pass }} 
   ansible.builtin.shell: |
       set -o pipefail
       if [ -f /opt/splunkforwarder/bin/splunk ]; then
-        /opt/splunkforwarder/bin/splunk --accept-license --answer-yes -version -auth :{{ splunk_forwarder_admin_pass }} |tail -1 |cut -d ' ' -f 4
+        /opt/splunkforwarder/bin/splunk --accept-license --answer-yes -version |tail -1 |cut -d ' ' -f 4
       fi
   args:
     executable: /bin/bash
