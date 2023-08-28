@@ -1,4 +1,9 @@
 ---
+- name: Check if arm platform is requested for an unsupported Splunk Release Version
+  ansible.builtin.fail: |
+    msg="Exiting.  Splunk for ARM install via Package is only supported on release 9.0.2 or later"
+  when: "{{ splunk_release }} is version('9.0.2', 'lt', version_type='semver')"
+
 - name: Create Splunk group
   ansible.builtin.group:
     name: "{{ splunk_forwarder_group }}"
@@ -14,7 +19,7 @@
     state: present
   tags: splunk_user
 
-- name: Check Version Installed
+- name: Check Splunk Universal Forwarder Version Installed
   ansible.builtin.shell: |
       set -o pipefail
       if [ -f /opt/splunkforwarder/bin/splunk ]; then
@@ -24,6 +29,8 @@
     executable: /bin/bash
   register: splunk_version_check
   changed_when: splunk_version_check.stdout != splunk_release
+
+
 
 - name: Install Splunk Forwarder Client
   block:

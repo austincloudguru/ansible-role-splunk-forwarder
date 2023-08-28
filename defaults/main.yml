@@ -4,16 +4,7 @@ splunk_forwarder_group: "splunk"
 splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
 splunk_release: "9.1.0.1"
-splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux"
-splunk_forwarder_rpm: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-x86_64.rpm"
-splunk_forwarder_deb: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-amd64.deb"
-splunk_forwarder_arm: "splunkforwarder-9.0.2-17e00c557dc1-Linux-armv8.tgz"
-splunk_rpm: "{{ splunk_url }}/{{ splunk_forwarder_rpm }}"
-splunk_deb: "{{ splunk_url }}/{{ splunk_forwarder_deb }}"
-splunk_arm: "{{ splunk_url }}/{{ splunk_forwarder_arm }}"
-splunk_rpm_checksum: "md5:4faa1073d4b4f5c2ca46a8e6d71d4737"
-splunk_deb_checksum: "md5:817637baad2f485b54a4fecac9f671b3"
-splunk_arm_checksum: "md5:20657ba28e2dff77def3eab6d0f7d7a8"
+splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}"
 splunk_forwarder_download:
   7.2.4.2:
     string: 'fb30470262e3'
