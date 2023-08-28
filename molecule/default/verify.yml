@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   vars:
-    service_name: splunkd.service
+    service_name: SplunkForwarder.service
   vars_files:
     - "../../defaults/main.yml"
   tasks:
