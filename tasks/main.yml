@@ -89,7 +89,7 @@
 
 - name: Set logfile permissions
   ansible.posix.acl:
-    path: "{{ item }}"
+    path: "{{ item.path }}"
     entity: "{{ splunk_forwarder_user }}"
     state: present
     etype: user
