@@ -1,6 +1,10 @@
 ---
 - name: Enable Splunk Forwarder
   ansible.builtin.service:
-    name: splunkd
+    name: SplunkForwarder
     enabled: true
     state: started
+
+- name: Clear config for Cloning
+  ansible.builtin.command: /opt/splunkforwarder/bin/splunk clone-prep-clear-config
+  when: building_image

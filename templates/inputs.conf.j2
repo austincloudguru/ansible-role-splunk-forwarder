@@ -3,12 +3,18 @@
 # Any local changes will be reverted.
 ###
 [default]
-index = {{ splunk_forwarder_index }}
+index = {{ splunk_forwarder_default_index }}
 
 blacklist = \.bz2$
 ignoreOlderThan = 7d
-sourcetype = {{ splunk_forwarder_sourcetype }}
+sourcetype = {{ splunk_forwarder_default_sourcetype }}
 
 {% for input_src in splunk_forwarder_logs %}
-[monitor://{{ input_src }}]
+[monitor://{{ input_src.path }}]
+{% if input_src.sourcetype is defined %}
+sourcetype = {{ input_src.sourcetype}}
+{% endif %}
+{% if input_src.index is defined %}
+index = {{ input_src.index }}
+{% endif %}
 {% endfor %}

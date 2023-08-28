@@ -1,4 +1,9 @@
 ---
+- name: Check if arm platform is requested for an unsupported Splunk Release Version
+  ansible.builtin.fail: |
+    msg="Exiting.  Splunk for ARM install via Package is only supported on release 9.0.2 or later"
+  when: splunk_release is version('9.0.2', 'lt', version_type='loose')
+
 - name: Create Splunk group
   ansible.builtin.group:
     name: "{{ splunk_forwarder_group }}"
@@ -14,67 +19,55 @@
     state: present
   tags: splunk_user
 
-- name: Install Splunk on Debian X86 Based Systems
+- name: Check if Splunk is installed
+  ansible.builtin.stat:
+    path: /opt/splunkforwarder/bin/splunk
+  register: splunk_installed
+
+- name: Check Splunk Universal Forwarder Version Installed
+  # -auth :{{ splunk_forwarder_admin_pass }}
+  ansible.builtin.shell: |
+      set -o pipefail
+      if [ -f /opt/splunkforwarder/bin/splunk ]; then
+        /opt/splunkforwarder/bin/splunk --accept-license --answer-yes -version |tail -1 |cut -d ' ' -f 4
+      fi
+  args:
+    executable: /bin/bash
+  register: splunk_version_check
+  changed_when: splunk_version_check.stdout != splunk_release
+
+- name: Install Splunk Forwarder Client
+  when: splunk_version_check.stdout != splunk_release
+  notify:
+    - Enable Splunk Forwarder
+    - Clear config for Cloning
   block:
-    - name: Download the Splunk package (Debian/Ubuntu)
-      ansible.builtin.get_url:
-        url: "{{ splunk_deb }}"
-        dest: "/tmp/{{ splunk_forwarder_deb }}"
-        checksum: "{{ splunk_deb_checksum }}"
-        mode: 0664
 
-    - name: Install Splunk (Debian/Ubuntu)
-      ansible.builtin.apt:
-        deb: "/tmp/{{ splunk_forwarder_deb }}"
-        state: present
-  when: ansible_os_family == "Debian" and ansible_architecture != "aarch64"
+    - name: Install Splunk Forwarder on Debian
+      ansible.builtin.include_tasks:
+        file: debian.yml
+      when: ansible_os_family == "Debian"
 
-- name: Install Splunk on Linux Based Arm Based Systems
-  block:
-    - name: Check Version Installed
-      ansible.builtin.shell: |
-          set -o pipefail
-          if [ -f /opt/splunkforwarder/bin/splunk ]; then
-            /opt/splunkforwarder/bin/splunk -version |tail -1 |cut -d ' ' -f 4
-          fi
-      args:
-        executable: /bin/bash
-      register: splunk_version_check
-      changed_when: splunk_version_check.stdout != splunk_release
+    - name: Install Splunk Forwarder on RHEL
+      ansible.builtin.include_tasks:
+        file: rhel.yml
+      when: ansible_os_family == "RedHat"
 
-    - name: Install the Splunk Package
-      ansible.builtin.unarchive:
-        src: "{{ splunk_arm }}"
-        dest: "/opt"
-        remote_src: true
-        owner: "{{ splunk_forwarder_user }}"
-        group: "{{ splunk_forwarder_group }}"
-        mode: 0755
-      when: splunk_version_check.stdout != splunk_release
-  when: ansible_system == "Linux" and ansible_architecture == "aarch64"
+- name: "Find all directories within $SPLUNK_HOME"
+  ansible.builtin.find:
+    path: "{{ splunk_home }}"
+    file_type: any
+    recurse: true
+  register: splunk_contents
+  when: not splunk_installed.stat.exists and splunk_forwarder_user != "splunkfwd"
 
-- name: Install Splunk on Enterprise Linux Based Systems
-  block:
-    - name: Download the Splunk package (Enterprise Linux)
-      ansible.builtin.get_url:
-        url: "{{ splunk_rpm }}"
-        dest: "/tmp/{{ splunk_forwarder_rpm }}"
-        checksum: "{{ splunk_rpm_checksum }}"
-        mode: 0664
-
-    - name: Install Splunk (python2 yum)
-      ansible.builtin.yum:
-        name: "/tmp/{{ splunk_forwarder_rpm }}"
-        state: present
-      when: ansible_facts.python.version.major | int < 3
-
-    - name: Install Splunk (python3 dnf)
-      ansible.builtin.dnf:
-        name: "/tmp/{{ splunk_forwarder_rpm }}"
-        disable_gpg_check: true
-        state: present
-      when: ansible_facts.python.version.major | int >= 3
-  when: ansible_os_family == "RedHat" and ansible_architecture != "aarch64"
+- name: "Recursively change ownership of $SPLUNK_HOME"
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    owner: "{{ splunk_forwarder_user }}"
+    group: "{{ splunk_forwarder_group }}"
+  loop: "{{ splunk_contents.files }}"
+  when: not splunk_installed.stat.exists and splunk_forwarder_user != "splunkfwd"
 
 - name: Copy user seeds file
   ansible.builtin.template:
@@ -85,7 +78,7 @@
   when: splunk_forwarder_admin_user is defined and splunk_forwarder_admin_pass is defined
   tags: config_copy
 
-- name: Copy deploymentclient file
+- name: Copy deployment client file
   ansible.builtin.template:
     src: deploymentclient.conf.j2
     dest: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
@@ -110,9 +103,18 @@
     backup: true
   tags: config_copy
 
+- name: Copy server file
+  ansible.builtin.template:
+    src: server.conf.j2
+    dest: /opt/splunkforwarder/etc/system/local/server.conf
+    mode: 0664
+    backup: true
+  when: splunk_forwarder_output_use_tls
+  tags: config_copy
+
 - name: Set logfile permissions
   ansible.posix.acl:
-    path: "{{ item }}"
+    path: "{{ item.path }}"
     entity: "{{ splunk_forwarder_user }}"
     state: present
     etype: user
@@ -121,12 +123,18 @@
   become: true
   with_items: "{{ splunk_forwarder_logs }}"
 
-- name: Upload Splunk Systemd Script
-  ansible.builtin.template:
-    src: splunkd.service.j2
-    dest: /etc/systemd/system/splunkd.service
-    owner: root
-    group: root
-    mode: 0644
-  notify: Enable Splunk Forwarder
-  when: ansible_service_mgr == 'systemd'
+# - name: Upload SplunkForwarder Systemd Script
+#   ansible.builtin.template:
+#     src: splunkd.service.j2
+#     dest: /etc/systemd/system/splunkd.service
+#     owner: root
+#     group: root
+#     mode: 0644
+#   notify: Enable Splunk Forwarder
+#   when: ansible_service_mgr == 'systemd'
+
+- name: Accept Splunk License
+  become_user: splunk
+  # ansible.builtin.command: /opt/splunkforwarder/bin/splunk --accept-license --answer-yes --no-prompt
+  ansible.builtin.command: "/opt/splunkforwarder/bin/splunk enable boot-start -systemd-managed 1 -user {{ splunk_forwarder_user }} -group {{ splunk_forwarder_group }} --accept-license --answer-yes --no-prompt"
+  when: not splunk_installed.stat.exists

@@ -1,0 +1,47 @@
+---
+- name: Install Splunk on Debian AMD64 Based Systems
+  when: ansible_architecture != "aarch64"
+  block:
+    - name: Set Package Name
+      ansible.builtin.set_fact:
+        deb_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string'] }}-linux-2.6-amd64.deb"
+
+    - name: Set Download URL
+      ansible.builtin.set_fact:
+        deb_url: "{{ splunk_url }}{{ deb_name }}"
+
+    - name: Download the Splunk package (Debian/Ubuntu)
+      ansible.builtin.get_url:
+        url: "{{ deb_url }}"
+        dest: "/tmp/{{ deb_name }}"
+        checksum: "{{ splunk_forwarder_download[splunk_release]['amd64_deb_hash'] }}"
+        mode: 0664
+
+    - name: Install Splunk (Debian/Ubuntu)
+      ansible.builtin.apt:
+        deb: "/tmp/{{ deb_name }}"
+        state: present
+
+
+- name: Install Splunk on Debian arm64 Based Systems
+  when: ansible_architecture == "aarch64"
+  block:
+    - name: Set Package Name
+      ansible.builtin.set_fact:
+        deb_name: "splunkforwarder-{{ splunk_release }}-{{ splunk_forwarder_download[splunk_release]['string'] }}-linux-armv8.deb"
+
+    - name: Set Download URL
+      ansible.builtin.set_fact:
+        deb_url: "{{ splunk_url }}{{ deb_name }}"
+
+    - name: Download the Splunk package (Debian/Ubuntu)
+      ansible.builtin.get_url:
+        url: "{{ deb_url }}"
+        dest: "/tmp/{{ deb_name }}"
+        checksum: "{{ splunk_forwarder_download[splunk_release]['arm64_deb_hash'] }}"
+        mode: 0664
+
+    - name: Install Splunk (Debian/Ubuntu)
+      ansible.builtin.apt:
+        deb: "/tmp/{{ deb_name }}"
+        state: present
