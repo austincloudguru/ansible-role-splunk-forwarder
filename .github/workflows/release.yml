@@ -16,7 +16,9 @@ defaults:
     working-directory: 'troyfontaine.splunk-forwarder'
 
 jobs:
-
+  build:
+    permissions:
+      contents: write
   release:
     name: Release
     runs-on: ubuntu-latest
