@@ -6,7 +6,6 @@ name: Molecule
   pull_request:
     branches:
       - master
-  push:
 
 defaults:
   run:
