@@ -2,6 +2,9 @@
 {% if splunk_forwarder_output_root_ca_path is defined and splunk_forwarder_output_use_tls %}
 sslVerifyServerCert = true
 sslRootCAPath = {{ splunk_forwarder_output_root_ca_path is defined and splunk_forwarder_output_use_tls }}
+{% if splunk_forwarder_output_ssl_alt_name is defined %}
+sslAltNameToCheck = {% for alt_name in splunk_forwarder_output_ssl_alt_name %} {{ alt_name }}{% if not loop.last %}, {% endif %} {% endfor %}
+{% endif %}
 {% endif %}
 {% if splunk_forwarder_output_cipher_suite is defined and splunk_forwarder_output_use_tls %}
 cipherSuite = {{ splunk_forwarder_output_cipher_suite }}
