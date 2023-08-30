@@ -1,36 +1,52 @@
-Ansible Role: splunk-forwarder
-=========
+# Ansible Role: splunk-forwarder
+
 [![Molecule](https://github.com/troyfontaine/ansible-role-splunk-forwarder/workflows/Molecule/badge.svg?event=push)](https://github.com/troyfontaine/ansible-role-splunk-forwarder/actions?query=workflow%3AMolecule)
 ![Latest Version](https://img.shields.io/github/v/tag/troyfontaine/ansible-role-splunk-forwarder?sort=semver&label=Latest%20Version)
 [![License](https://img.shields.io/github/license/troyfontaine/ansible-role-splunk-forwarder)](https://github.com/troyfontaine/ansible-role-splunk-forwarder/blob/master/LICENSE)
 
-This role will deploy the Splunk universal forwarder.
+This role will deploy the Splunk Universal Forwarder package on Linux systems running on AMD64 or ARM64 platforms running recent Ubuntu LTS releases or Red Hat Enterprise Linux derived releases.
 
-Requirements
-------------
+## Requirements
 
-This role is tested on Ubuntu 16.04, 18.04, 20.04, 22.04, Oracle Linux 8 and Amazon Linux 2, but should probably work on any systemd based system.
+This role is tested using Molecule via GitHub Actions with Ubuntu 16.04, 18.04, 20.04, 22.04, Oracle Linux 8 and Amazon Linux 2, but should probably work on any systemd based system on a compatible platform.
 
+## Functionality
 
-Role Variables
---------------
+This role deploys Splunk Universal Forwarder from version 8.2.8 (AMD64) or 9.0.2 (ARM64) through to 9.1.0.1 (both architectures).
+
+To use this role as part of a Packer build pipeline, set the variable `building_image` to `true`.
+
+This role can accept a list of indexers to ["load balance"][splunk_load_balance] log output as per Splunk's recommendations.
+
+### TLS
+
+Based on the configuration of the environment variable `splunk_forwarder_output_use_tls`, the Splunk2Splunk (S2S) port used with the provided list of indexers (via `splunk_forwarder_indexer_hostname`) will be set to match the default ports that a Splunk Indexer would use (TCP 9997 for unencrypted, TCP 9998 for TLS encrypted traffic).  The unencrypted S2S port setting can be overriden by specifying a value for `splunk_forwarder_indexer_notls_port`.  Similarly, if you use a non-standard encrypted port for S2S, you can modify `splunk_forwarder_indexer_tls_port` to configure that.
+
+To enable TLS certificate verification, specify a path value for the variable `splunk_forwarder_output_root_ca_path`.  To enable Mutual TLS, you will need to specify a path to a valid certificate for `splunk_forwarder_output_client_cert_path`.
+
+### Log Ingestion
+
+This role accepts a list of dictionaries to allow for some customization of the monitor entries in the [inputs.conf](./templates/inputs.conf.j2).  This allows for disabling, configuring sourcetype, specifying a non-default index (NOTE: The index MUST already exist on the indexer for you to send logs to the index specified) and crcSalt.  This is a non-exhaustive list of options-but covers a variety of use-cases.
+
+## Role Variables
 
 ### Default
 
-For most people, the default variables that are set should be fine, but there are use cases for changing them.  They are:
+This role provides a variety of options that can be enabled/disabled based on variables configured in the playbook used to reference this role.
 
+For most people, the default variables that are set should be fine, but there are use cases for changing them.  You can find the defaults in the [defaults/main.yml](defaults/main.yml).  From there, you can copy the variable you want to override and specify it in your calling playbook.
 
-     splunk_forwarder_user                      # Default User (splunkfwd)
-     splunk_forwarder_group                     # Default Group (splunkfwd)
-     splunk_forwarder_uid                       # Default UID (10011)
-     splunk_forwarder_gid                       # Default GID (10011)
-     splunk_release                             # Default Release Version (9.1.0.1)
-     splunk_url                                 # Default Download URL              
+#### Required variables
 
+The following variables must be configured in order for the SplunkForwarder to capture logs and send them to an unauthenticated/unencrypted Indexer endpoint:
+    splunk_forwarder_indexer_hostname:
+      - "splunk-indexer-hostname-goes-here"
+    splunk_forwarder_logs:
+      - { 'path': '/var/log/syslog' }
+      - { 'path': '/var/log/nginx/access.log', 'sourcetype': 'nginx', 'index': 'nginx' }
+      - { 'path': '/var/log/nginx/error.log', 'sourcetype': 'nginx', 'index': 'nginx' }
 
-### Playbook Variables
-
-Within your playbook, you should set the following variables:
+The following variables are examples of what you can configure:
 
     splunk_forwarder_admin_user:            # Set the administrative user for the forwarder
     splunk_forwarder_admin_pass:            # Set the administrative password for the forwarder
@@ -40,11 +56,6 @@ Within your playbook, you should set the following variables:
     splunk_forwarder_default_index:         # Set to the index that the forwarder should use i.e. "default"
     splunk_forwarder_default_sourcetype:    # Set the Source type i.e. "nginx"
 
-You also need to set what logs to forward. You can do so using a list:
-
-    splunk_forwarder_logs:
-      - { 'path': '/var/log/nginx/access.log', 'sourcetype': 'nginx', 'index': 'nginx' }
-      - { 'path': '/var/log/nginx/error.log', 'sourcetype': 'nginx', 'index': 'nginx' }
 
 Dependencies
 ------------
@@ -61,13 +72,12 @@ You should define the required variables in your playbook and call the role:
       become: True
       vars:
         splunk_forwarder_indexer_hostname:
-          - "splunk-indexer:9997"
+          - "splunk-indexer"
         splunk_forwarder_default_index: "prodapps"
         splunk_forwarder_default_sourcetype: "nginx"
-        splunk_forwarder_logs = [
-          {"path": "/var/log/nginx/access.log", "sourcetype": "nginx", "index": "nginx"},
-          {"path": "/var/log/nginx/error.log", "sourcetype": "nginx", "index": "nginx"}
-        ]
+        splunk_forwarder_logs:
+          - { 'path': '/var/log/nginx/access.log', 'sourcetype': 'nginx', 'index': 'nginx' }
+          - { 'path': '/var/log/nginx/error.log', 'sourcetype': 'nginx', 'index': 'nginx' }
         roles:
           - splunk-forwarder
 
@@ -87,5 +97,7 @@ MIT
 Author Information
 ------------------
 
-Mark Honomichl aka [AustinCloudGuru](https://austincloud.guru)
-Created in 2016 
+Original by Mark Honomichl aka [AustinCloudGuru](https://austincloud.guru).
+
+
+[splunk_load_balance]: https://docs.splunk.com/Documentation/Splunk/9.1.0/Forwarding/Setuploadbalancingd
