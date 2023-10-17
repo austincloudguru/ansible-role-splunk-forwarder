@@ -15,65 +15,15 @@
   tags: splunk_user
 
 - name: Install Splunk on Debian X86 Based Systems
-  block:
-    - name: Download the Splunk package (Debian/Ubuntu)
-      ansible.builtin.get_url:
-        url: "{{ splunk_deb }}"
-        dest: "/tmp/{{ splunk_forwarder_deb }}"
-        checksum: "{{ splunk_deb_checksum }}"
-        mode: 0664
-
-    - name: Install Splunk (Debian/Ubuntu)
-      ansible.builtin.apt:
-        deb: "/tmp/{{ splunk_forwarder_deb }}"
-        state: present
+  ansible.builtin.include_tasks: install_debian.yml
   when: ansible_os_family == "Debian" and ansible_architecture != "aarch64"
 
 - name: Install Splunk on Linux Based Arm Based Systems
-  block:
-    - name: Check Version Installed
-      ansible.builtin.shell: |
-          set -o pipefail
-          if [ -f /opt/splunkforwarder/bin/splunk ]; then
-            /opt/splunkforwarder/bin/splunk -version |tail -1 |cut -d ' ' -f 4
-          fi
-      args:
-        executable: /bin/bash
-      register: splunk_version_check
-      changed_when: splunk_version_check.stdout != splunk_release
-
-    - name: Install the Splunk Package
-      ansible.builtin.unarchive:
-        src: "{{ splunk_arm }}"
-        dest: "/opt"
-        remote_src: true
-        owner: "{{ splunk_forwarder_user }}"
-        group: "{{ splunk_forwarder_group }}"
-        mode: 0755
-      when: splunk_version_check.stdout != splunk_release
+  ansible.builtin.include_tasks: install_linux_aarch64.yml
   when: ansible_system == "Linux" and ansible_architecture == "aarch64"
 
 - name: Install Splunk on Enterprise Linux Based Systems
-  block:
-    - name: Download the Splunk package (Enterprise Linux)
-      ansible.builtin.get_url:
-        url: "{{ splunk_rpm }}"
-        dest: "/tmp/{{ splunk_forwarder_rpm }}"
-        checksum: "{{ splunk_rpm_checksum }}"
-        mode: 0664
-
-    - name: Install Splunk (python2 yum)
-      ansible.builtin.yum:
-        name: "/tmp/{{ splunk_forwarder_rpm }}"
-        state: present
-      when: ansible_facts.python.version.major | int < 3
-
-    - name: Install Splunk (python3 dnf)
-      ansible.builtin.dnf:
-        name: "/tmp/{{ splunk_forwarder_rpm }}"
-        disable_gpg_check: true
-        state: present
-      when: ansible_facts.python.version.major | int >= 3
+  ansible.builtin.include_tasks: install_redhat.yml
   when: ansible_os_family == "RedHat" and ansible_architecture != "aarch64"
 
 - name: Copy user seeds file

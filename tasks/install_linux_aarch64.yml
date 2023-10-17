@@ -1,0 +1,22 @@
+---
+# Installation tasks for Linux aarch64
+- name: Check Version Installed
+  ansible.builtin.shell: |
+      set -o pipefail
+      if [ -f /opt/splunkforwarder/bin/splunk ]; then
+        /opt/splunkforwarder/bin/splunk -version |tail -1 |cut -d ' ' -f 4
+      fi
+  args:
+    executable: /bin/bash
+  register: splunk_version_check
+  changed_when: splunk_version_check.stdout != splunk_release
+
+- name: Install the Splunk Package
+  ansible.builtin.unarchive:
+    src: "{{ splunk_arm }}"
+    dest: "/opt"
+    remote_src: true
+    owner: "{{ splunk_forwarder_user }}"
+    group: "{{ splunk_forwarder_group }}"
+    mode: 0755
+  when: splunk_version_check.stdout != splunk_release

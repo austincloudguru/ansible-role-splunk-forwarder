@@ -1,0 +1,13 @@
+---
+# Installation tasks for Debian Linux
+- name: Download the Splunk package (Debian/Ubuntu)
+  ansible.builtin.get_url:
+    url: "{{ splunk_deb }}"
+    dest: "/tmp/{{ splunk_forwarder_deb }}"
+    checksum: "{{ splunk_deb_checksum }}"
+    mode: 0664
+
+- name: Install Splunk (Debian/Ubuntu)
+  ansible.builtin.apt:
+    deb: "/tmp/{{ splunk_forwarder_deb }}"
+    state: present
