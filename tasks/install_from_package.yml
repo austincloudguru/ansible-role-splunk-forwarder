@@ -1,0 +1,7 @@
+---
+# Install splunk using distribution's package manager
+- name: Ensure Splunk Forwarder is installed using package manager
+  ansible.builtin.package:
+    name: "{{ splunk_forwarder_packages }}"
+    disable_gpg_check: true
+    state: present

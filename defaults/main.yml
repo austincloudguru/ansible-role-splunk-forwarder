@@ -3,6 +3,13 @@ splunk_forwarder_user: "splunk"
 splunk_forwarder_group: "splunk"
 splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
+
+# Install splunk forwarder using the package manager? Instead of direct download of .deb or .rpm
+splunk_forwarder_install_with_package_manager: false
+splunk_forwarder_packages:
+  - splunkforwarder
+
+# Variables that control installation of the splunk forwarder by direct downloaded .rpm or .deb
 splunk_release: "9.0.2"
 splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux"
 # splunk_url: "https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/{{ splunk_release }}/linux"

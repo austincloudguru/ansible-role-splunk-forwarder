@@ -20,18 +20,20 @@ Role Variables
 For most people, the default variables that are set should be fine, but there are use cases for changing them.  They are:
 
 
-     splunk_forwarder_user                      # Default User (splunk)
-     splunk_forwarder_group                     # Default Group (splunk)
-     splunk_forwarder_uid                       # Default UID (10011)
-     splunk_forwarder_gid                       # Default GID (10011)
-     splunk_release                             # Default Release Version (7.1.3)
-     splunk_url                                 # Default Download URL              
-     splunk_forwarder_rpm                       # Default Splunk RPM Name
-     splunk_forwarder_deb                       # Default Splunk Deb Name
-     splunk_rpm                                 # Default RPM Full URL
-     splunk_deb                                 # Default Deb Full URL
-     splunk_deb_checksum                        # Default Deb Checksum
-     splunk_rpm_checksum                        # Default RPM Checksum
+     splunk_forwarder_user                                  # Default User (splunk)
+     splunk_forwarder_group                                 # Default Group (splunk)
+     splunk_forwarder_uid                                   # Default UID (10011)
+     splunk_forwarder_gid                                   # Default GID (10011)
+     splunk_release                                         # Default Release Version (7.1.3)
+     splunk_url                                             # Default Download URL
+     splunk_forwarder_rpm                                   # Default Splunk RPM Name
+     splunk_forwarder_deb                                   # Default Splunk Deb Name
+     splunk_rpm                                             # Default RPM Full URL
+     splunk_deb                                             # Default Deb Full URL
+     splunk_deb_checksum                                    # Default Deb Checksum
+     splunk_rpm_checksum                                    # Default RPM Checksum
+     splunk_forwarder_install_with_package_manager          # set this to true to use the package manager, default: false
+     splunk_forwarder_packages                              # list of packages to be installed, default: [splunkforwarder]
 
 
 ### Playbook Variables
