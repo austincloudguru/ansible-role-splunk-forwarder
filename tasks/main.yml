@@ -21,19 +21,19 @@
 - name: Install Splunk on Debian X86 Based Systems
   ansible.builtin.include_tasks: install_debian.yml
   when:
-    - not splunk_forwarder_install_with_package_manager
+    - not splunk_forwarder_install_with_package_manager | bool
     - ansible_os_family == "Debian" and ansible_architecture != "aarch64"
 
 - name: Install Splunk on Linux Based Arm Based Systems
   ansible.builtin.include_tasks: install_linux_aarch64.yml
   when:
-    - not splunk_forwarder_install_with_package_manager
+    - not splunk_forwarder_install_with_package_manager | bool
     - ansible_system == "Linux" and ansible_architecture == "aarch64"
 
 - name: Install Splunk on Enterprise Linux Based Systems
   ansible.builtin.include_tasks: install_redhat.yml
   when:
-    - not splunk_forwarder_install_with_package_manager
+    - not splunk_forwarder_install_with_package_manager | bool
     - ansible_os_family == "RedHat" and ansible_architecture != "aarch64"
 
 - name: Copy user seeds file
