@@ -3,5 +3,5 @@
 - name: Ensure Splunk Forwarder is installed using package manager
   ansible.builtin.package:
     name: "{{ splunk_forwarder_packages }}"
-    disable_gpg_check: true
+    disable_gpg_check: "{% if ansible_facts.os_family == 'RedHat' %}true{% else %}omit{% endif %}"
     state: present
