@@ -11,6 +11,9 @@ galaxy_info:
     - name: Amazon
       versions:
         - all
+    - name: Debian
+      versions:
+        - bookworm
     - name: Ubuntu
       versions:
         - xenial
