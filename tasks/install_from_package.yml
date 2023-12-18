@@ -1,7 +1,15 @@
 ---
 # Install splunk using distribution's package manager
-- name: Ensure Splunk Forwarder is installed using package manager
-  ansible.builtin.package:
+
+- name: Ensure Splunk Forwarder using APT package manager
+  ansible.builtin.apt:
     name: "{{ splunk_forwarder_packages }}"
-    disable_gpg_check: "{% if ansible_facts.os_family == 'RedHat' %}true{% else %}omit{% endif %}"
     state: present
+  when: ansible_facts.os_family == 'Debian'
+
+- name: Ensure Splunk Forwarder using DNF package manager
+  ansible.builtin.dnf:
+    name: "{{ splunk_forwarder_packages }}"
+    disable_gpg_check: true
+    state: present
+  when: ansible_facts.os_family == 'RedHat'
