@@ -5,7 +5,7 @@ splunk_forwarder_group: "splunkfwd"
 splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
 building_image: false
-splunk_release: "9.1.0.1"
+splunk_release: "9.1.2"
 splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux/"
 splunk_forwarder_download:
   7.2.4.2:
@@ -69,6 +69,18 @@ splunk_forwarder_download:
     arm64_deb_hash: 'md5:408333bbf58a7ab234fa3124e84b75aa'
     # RPM now uses aarch64 instead of armv8
     arm64_rpm_hash: 'md5:a0bf2787825391060c8510770364b7a0'
+  9.1.1:
+    string: '64e843ea36b1'
+    amd64_deb_hash: 'md5:24cd711edcfca6575a5fdafadc8ca5d3'
+    amd64_rpm_hash: 'md5:48700b9eb544848e103fc4476e00e8ef'
+    arm64_deb_hash: 'md5:29f239abc8bd33b1c681795fe065874a'
+    arm64_rpm_hash: 'md5:fa4af2c319b15aa4b48f720e3fe16665'
+  9.1.2:
+    string: 'b6b9c8185839'
+    amd64_deb_hash: 'md5:d8166a23b7a1690907a856c189110c13'
+    amd64_rpm_hash: 'md5:232f9ffc8bbc1b279704a19b45d2187b'
+    arm64_deb_hash: 'md5:d5ac8ff6691b20e21aa6d15eda93f02d'
+    arm64_rpm_hash: 'md5:425a5cf5efef1c4d22632954a4bdb34a'
 
 
 splunk_forwarder_indexer_hostname:
