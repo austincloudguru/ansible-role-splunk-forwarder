@@ -9,7 +9,7 @@ This role will deploy the Splunk universal forwarder.
 Requirements
 ------------
 
-This role is tested on Ubuntu 16.04, 18.04 and CentOS 7, 8, but should probably work on any systemd based system.  The previous version of this role is available as a tag (v1.0)
+This role is tested on Ubuntu 22.04 & 20.04, Oracle Linux 8 & 9, AmazonLinux 2023, and Debian 12 but should probably work on any systemd based system.  The previous version of this role is available as a tag (v1.0)
 
 
 Role Variables

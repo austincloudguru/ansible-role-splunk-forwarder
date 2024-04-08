@@ -6,14 +6,14 @@ dependency:
     ignore-errors: true
     requirements-file: collections.yml
 driver:
-  name: docker
+  name: podman
 lint: |
   set -e
   yamllint .
   ansible-lint
 platforms:
   - name: instance
-    image: ${MOLECULE_DISTRO}
+    image: ${MOLECULE_DISTRO:-amazonlinux}
     privileged: true
     # cap_add:
     #   - SYS_ADMIN
@@ -25,6 +25,7 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /lib/systemd/systemd
+    platform: amd64
 provisioner:
   name: ansible
 verifier:
