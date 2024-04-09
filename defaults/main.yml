@@ -5,7 +5,6 @@ splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
 splunk_release: "9.0.2"
 splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux"
-# splunk_url: "https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/{{ splunk_release }}/linux"
 splunk_forwarder_rpm: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-x86_64.rpm"
 splunk_forwarder_deb: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-amd64.deb"
 splunk_forwarder_arm: "splunkforwarder-9.0.2-17e00c557dc1-Linux-armv8.tgz"
@@ -19,6 +18,11 @@ splunk_forwarder_input_blacklist: '\.bz2$'
 splunk_forwarder_manage_inputs: true
 splunk_forwarder_manage_outputs: true
 
+# Install splunk forwarder using the package manager instead of direct download of .deb or .rpm
+splunk_forwarder_install_with_package_manager: false
+splunk_forwarder_packages:
+  - curl
+  - splunkforwarder
 
 # These may be removed at some point, but they are placeholders so I don't forget to set them
 splunk_forwarder_indexer: "splunk-indexer:9997"

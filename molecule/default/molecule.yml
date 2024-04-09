@@ -15,17 +15,11 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO:-amazonlinux}
     privileged: true
-    # cap_add:
-    #   - SYS_ADMIN
-    # security_opt:
-    #   - seccomp:unconfined
-    # tmpfs:
-    #   - /run
-    #   - /run/lock
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /lib/systemd/systemd
     platform: amd64
+    # platform: arm64v8
 provisioner:
   name: ansible
 verifier:
