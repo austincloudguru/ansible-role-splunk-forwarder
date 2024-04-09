@@ -5,7 +5,7 @@ galaxy_info:
   description: Installs the Splunk Forwarder
   company: AustinCloudGuru
   license: MIT
-  namespace: austincloudguru
+  namespace: AustinCloudGuru
   min_ansible_version: "2.0"
   platforms:
     - name: Amazon
