@@ -1,19 +1,19 @@
 ---
-splunk_forwarder_user: "splunk"
-splunk_forwarder_group: "splunk"
+splunk_forwarder_user: "splunkfwd"
+splunk_forwarder_group: "splunkfwd"
 splunk_forwarder_uid: "10011"
 splunk_forwarder_gid: "10011"
-splunk_release: "9.0.2"
+splunk_release: "9.2.1"
 splunk_url: "https://download.splunk.com/products/universalforwarder/releases/{{ splunk_release }}/linux"
-splunk_forwarder_rpm: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-x86_64.rpm"
-splunk_forwarder_deb: "splunkforwarder-9.0.2-17e00c557dc1-linux-2.6-amd64.deb"
-splunk_forwarder_arm: "splunkforwarder-9.0.2-17e00c557dc1-Linux-armv8.tgz"
+splunk_forwarder_rpm: "splunkforwarder-9.2.1-78803f08aabb.x86_64.rpm"
+splunk_forwarder_deb: "splunkforwarder-9.2.1-78803f08aabb-linux-2.6-amd64.deb"
+splunk_forwarder_arm: "splunkforwarder-9.2.1-78803f08aabb-Linux-armv8.tgz"
 splunk_rpm: "{{ splunk_url }}/{{ splunk_forwarder_rpm }}"
 splunk_deb: "{{ splunk_url }}/{{ splunk_forwarder_deb }}"
 splunk_arm: "{{ splunk_url }}/{{ splunk_forwarder_arm }}"
-splunk_rpm_checksum: "md5:4faa1073d4b4f5c2ca46a8e6d71d4737"
-splunk_deb_checksum: "md5:817637baad2f485b54a4fecac9f671b3"
-splunk_arm_checksum: "md5:20657ba28e2dff77def3eab6d0f7d7a8"
+splunk_rpm_checksum: "md5:8666c398b516c978cddfd58b51f09390"
+splunk_deb_checksum: "md5:5ee878df96c7ae751748ca3b5c542859"
+splunk_arm_checksum: "md5:b3eadde5b34e04d28c2d1ed2de1e3189"
 splunk_forwarder_input_blacklist: '\.bz2$'
 splunk_forwarder_manage_inputs: true
 splunk_forwarder_manage_outputs: true
