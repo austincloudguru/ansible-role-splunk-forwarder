@@ -15,6 +15,7 @@ splunk_arm: "{{ splunk_url }}/{{ splunk_forwarder_arm }}"
 splunk_rpm_checksum: "md5:4faa1073d4b4f5c2ca46a8e6d71d4737"
 splunk_deb_checksum: "md5:817637baad2f485b54a4fecac9f671b3"
 splunk_arm_checksum: "md5:20657ba28e2dff77def3eab6d0f7d7a8"
+splunk_forwarder_input_blacklist: '\.bz2$'
 
 
 # These may be removed at some point, but they are placeholders so I don't forget to set them

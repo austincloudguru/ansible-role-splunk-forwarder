@@ -22,6 +22,16 @@
           - getent_group.splunk is defined
         quiet: true
 
+    - name: Verify inputs.conf
+      ansible.builtin.shell: |
+        set -o pipefail
+        grep 'bz2' /opt/splunkforwarder/etc/system/local/inputs.conf
+      args:
+        executable: /bin/bash
+      register: config_settings
+      failed_when: config_settings.rc != 0
+      changed_when: config_settings.rc != 0
+
     - name: Gather service facts
       ansible.builtin.service_facts:
 
@@ -29,6 +39,6 @@
       ansible.builtin.debug:
         var: ansible_facts.services["{{ service_name }}"]
 
-    - name: Assert codedeploy-agent is running
+    - name: Assert splunkforwarder is running
       ansible.builtin.assert:
         that: ansible_facts.services["{{ service_name }}"]["state"] == "running"
