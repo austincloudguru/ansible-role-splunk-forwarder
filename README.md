@@ -1,6 +1,6 @@
 Ansible Role: splunk-forwarder
 =========
-[![Molecule](https://github.com/austincloudguru/ansible-role-splunk-forwarder/workflows/Molecule/badge.svg?event=push)](https://github.com/austincloudguru/ansible-role-splunk-forwarder/actions?query=workflow%3AMolecule)
+[![Molecule](https://github.com/austincloudguru/ansible-role-splunk-forwarder/workflows/Molecule/badge.svg)](https://github.com/austincloudguru/ansible-role-splunk-forwarder/actions?query=workflow%3AMolecule)
 ![Latest Version](https://img.shields.io/github/v/tag/austincloudguru/ansible-role-splunk-forwarder?sort=semver&label=Latest%20Version)
 [![License](https://img.shields.io/github/license/austincloudguru/ansible-role-splunk-forwarder)](https://github.com/austincloudguru/ansible-role-splunk-forwarder/blob/master/LICENSE)
 
@@ -32,6 +32,7 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_deb                                 # Default Deb Full URL
      splunk_deb_checksum                        # Default Deb Checksum
      splunk_rpm_checksum                        # Default RPM Checksum
+     splunk_forwarder_input_blacklist           # Default blacklist for inputs.conf
 
 
 ### Playbook Variables
