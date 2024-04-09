@@ -33,7 +33,8 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_deb_checksum                        # Default Deb Checksum
      splunk_rpm_checksum                        # Default RPM Checksum
      splunk_forwarder_input_blacklist           # Default blacklist for inputs.conf
-
+     splunk_forwarder_manage_inputs             # Default whether to manage inputs.conf (true)
+     splunk_forwarder_manage_ouputs             # Default whether to manage ouputs.conf (true)
 
 ### Playbook Variables
 
