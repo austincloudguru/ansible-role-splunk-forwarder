@@ -2,32 +2,32 @@
 # {{ ansible_managed }}
 #
 [Unit]
-Description=Splunk Forwarder service
-Wants=network-online.target
+Description=Systemd service file for Splunk
 After=network-online.target
+Wants=network-online.target
  
 [Service]
-Restart=always
 Type=simple
+Restart=always
 ExecStart=/opt/splunkforwarder/bin/splunk _internal_launch_under_systemd --accept-license --no-prompt --answer-yes
-Delegate=true
-#Splunk defines successful exit codes other than 0 to indicate special exit scenarios which are
-#used by splunk operations like rolling-restart, offline etc.
+KillMode=mixed
+KillSignal=SIGINT
+TimeoutStopSec=360
+LimitNOFILE=65536
+LimitRTPRIO=99
 SuccessExitStatus=51 52
 RestartPreventExitStatus=51
 RestartForceExitStatus=52
-RemainAfterExit=no
-#On some systemd installations, systemd does not create cgroups for memory and cpu controller under system.slice
-#rather it runs process under root cgroups, we can force systemd to create cgroups under system.slice by specifying
-#MemoryLimit and CPUShares, please look at description below.
-#MemoryLimit=100G
-#CPUShares=1024
-#If you want to run splunk as root user, comment out the following five lines:
-PermissionsStartOnly=true
 User={{ splunk_forwarder_user }}
 Group={{ splunk_forwarder_group }}
-#ExecStartPost=/bin/bash -c "chown -R {{ splunk_forwarder_user }}:{{ splunk_forwarder_group }} /sys/fs/cgroup/cpu/system.slice/%n"
-#ExecStartPost=/bin/bash -c "chown -R {{ splunk_forwarder_user }}:{{ splunk_forwarder_group }} /sys/fs/cgroup/memory/system.slice/%n"
- 
+NoNewPrivileges=yes
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+ExecStartPre=-/bin/bash -c "chown -R {{ splunk_forwarder_user }}:{{ splunk_forwarder_group }} /opt/splunkforwarder"
+Delegate=true
+CPUShares=1024
+MemoryLimit=6192173056
+PermissionsStartOnly=true
+ExecStartPost=-/bin/bash -c "chown -R {{ splunk_forwarder_user }}:{{ splunk_forwarder_group }} /sys/fs/cgroup/system.slice/%n"
+
 [Install]
 WantedBy=multi-user.target
