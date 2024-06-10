@@ -24,8 +24,8 @@ NoNewPrivileges=yes
 AmbientCapabilities=CAP_DAC_READ_SEARCH
 ExecStartPre=-/bin/bash -c "chown -R {{ splunk_forwarder_user }}:{{ splunk_forwarder_group }} /opt/splunkforwarder"
 Delegate=true
-CPUShares=1024
-MemoryLimit=6192173056
+CPUShares={{ splunk_forwarder_cpu_shares }}
+MemoryLimit={{ splunk_forwarder_memory_limit }}
 PermissionsStartOnly=true
 ExecStartPost=-/bin/bash -c "chown -R {{ splunk_forwarder_user }}:{{ splunk_forwarder_group }} /sys/fs/cgroup/system.slice/%n"
 
