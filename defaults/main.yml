@@ -18,6 +18,10 @@ splunk_forwarder_input_blacklist: '\.bz2$'
 splunk_forwarder_manage_inputs: true
 splunk_forwarder_manage_outputs: true
 
+# Set the Memory and CPU limts for the Splunk Forwarder
+splunk_forwarder_cpu_shares: "1024"
+splunk_forwarder_memory_limit: "6192173056"
+
 # Install splunk forwarder using the package manager instead of direct download of .deb or .rpm
 splunk_forwarder_install_with_package_manager: false
 splunk_forwarder_packages:

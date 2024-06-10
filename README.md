@@ -37,6 +37,8 @@ For most people, the default variables that are set should be fine, but there ar
      splunk_forwarder_manage_ouputs                         # Default whether to manage ouputs.conf (true)
      splunk_forwarder_install_with_package_manager          # Default whether to use a package manager (false)
      splunk_forwarder_packages                              # Default package manager packages ([splunkforwarder])
+     splunk_forwarder_cpu_shares                            # Default CPUShares for the systemd startup file
+     splunk_forwarder_memory_limits                         # Default MemoryLimit for the systemd startup file
 
 ### Playbook Variables
 

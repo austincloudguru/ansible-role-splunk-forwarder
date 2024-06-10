@@ -39,9 +39,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Podman
-        uses: gacts/install-podman@v1
-
       - name: Install test dependencies.
         run: pip3 install -r requirements.txt
 
